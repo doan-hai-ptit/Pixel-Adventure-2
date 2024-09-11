@@ -8,12 +8,17 @@ public class PlayerController : MonoBehaviour
 {
     // Variables related to player character movement
     public InputAction moveAction;
+    public InputAction jumpAction;
+    public float moveSpeed = 400.0f;
+    public float jumpSpeed = 2.0f;
+    public float distance = 1f;
     Rigidbody2D rigidbody2d;
     float move;
-    float moveSpeed = 8.0f;
+   
     // Start is called before the first frame update
     void Start()
     {
+        jumpAction.Enable();
         moveAction.Enable();
         rigidbody2d = GetComponent<Rigidbody2D>();
     }
@@ -22,12 +27,31 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         move = moveAction.ReadValue<float>();
-        Debug.Log(move);
+        if (jumpAction.IsPressed())
+        {
+            Jump();
+            
+        }
+        
+        Debug.Log(rigidbody2d.velocity);
+       
     }
 
     private void FixedUpdate()
     {
-       // Vector2 position = (Vector2)rigidbody2d.position + move * moveSpeed * Time.deltaTime;
-        //rigidbody2d.MovePosition(position);
+        rigidbody2d.velocity = new Vector2(move * moveSpeed * Time.deltaTime, rigidbody2d.velocity.y);
+        //Debug.Log(rigidbody2d.velocity);
+    }
+
+    private void Jump()
+    {
+        rigidbody2d.velocity = new Vector2(rigidbody2d.velocity.x, jumpSpeed);
+        
+    }
+
+    private bool IsGrounded()
+    {
+            RaycastHit2D hit = Physics2D.Raycast(rigidbody2d.position, Vector2.down, distance, LayerMask.GetMask("Ground"));
+            return hit.collider != null;
     }
 }
