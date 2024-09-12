@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2214493016807635138}
   - component: {fileID: 1963546819697497813}
   - component: {fileID: 1925850312469816794}
+  - component: {fileID: 9003615352211150535}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -150,7 +151,8 @@ MonoBehaviour:
       m_Flags: 0
     m_Flags: 0
   moveSpeed: 400
-  jumpSpeed: 8
+  jumpSpeed: 17
+  distance: 1.02
 --- !u!50 &1963546819697497813
 Rigidbody2D:
   serializedVersion: 4
@@ -166,7 +168,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 5
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -223,3 +225,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.4278877, y: 1.6730788}
   m_EdgeRadius: 0
+--- !u!95 &9003615352211150535
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 724120675619162429}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fb816aa83f043e6499a325807eeb5afd, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

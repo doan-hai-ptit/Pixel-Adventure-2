@@ -15,11 +15,14 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D rigidbody2d;
     float move;
    
+    Animator animator;
+    
     // Start is called before the first frame update
     void Start()
     {
         jumpAction.Enable();
         moveAction.Enable();
+        animator = GetComponent<Animator>();
         rigidbody2d = GetComponent<Rigidbody2D>();
     }
 
@@ -27,20 +30,23 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         move = moveAction.ReadValue<float>();
-        if (jumpAction.IsPressed())
-        {
-            Jump();
-            
-        }
-        
-        Debug.Log(rigidbody2d.velocity);
-       
+        if(Mathf.Approximately(move, 1f)) animator.SetFloat("Direction", 1);
+        else animator.SetFloat("Direction", 0);
+        animator.SetFloat("Speed", Mathf.Abs(move));
+        Debug.Log(Mathf.Abs(move));
+     
     }
 
     private void FixedUpdate()
     {
         rigidbody2d.velocity = new Vector2(move * moveSpeed * Time.deltaTime, rigidbody2d.velocity.y);
-        //Debug.Log(rigidbody2d.velocity);
+       
+        if (jumpAction.IsPressed())
+        {
+            Jump();
+                    
+        }
+        Debug.Log(rigidbody2d.velocity);
     }
 
     private void Jump()
