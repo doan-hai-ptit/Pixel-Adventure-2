@@ -14,8 +14,14 @@ public class PlayerController : MonoBehaviour
     public float distance = 1f;
     Rigidbody2D rigidbody2d;
     float move;
-   
+    //private float horizontal;
+    
+    // Variables related to checking ground
+    public Transform groundCheck;
+    
+    // Variables related to animation
     Animator animator;
+    float moveDirection = 1f;
     
     // Start is called before the first frame update
     void Start()
@@ -29,23 +35,35 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //horizontal = Input.GetAxisRaw("Horizontal");
         move = moveAction.ReadValue<float>();
-        if(Mathf.Approximately(move, 1f)) animator.SetFloat("Direction", 1);
-        else animator.SetFloat("Direction", 0);
+        if (!Mathf.Approximately(move, 0.0f))
+        {
+           moveDirection = move;
+
+        }
+
+        animator.SetFloat("Direction", moveDirection);
         animator.SetFloat("Speed", Mathf.Abs(move));
-        Debug.Log(Mathf.Abs(move));
+        animator.SetFloat("yVelocity", rigidbody2d.velocity.y);
+        animator.SetBool("Jump", !IsGrounded());
+        //if (IsGrounded())
+        //{
+            //Time.timeScale = 0.0f;
+        //}
      
     }
 
     private void FixedUpdate()
     {
         rigidbody2d.velocity = new Vector2(move * moveSpeed * Time.deltaTime, rigidbody2d.velocity.y);
-       
-        if (jumpAction.IsPressed())
+        //rigidbody2d.velocity = new Vector2(horizontal * moveSpeed * Time.deltaTime, rigidbody2d.velocity.y);
+        if (jumpAction.IsPressed() && IsGrounded())
         {
             Jump();
                     
         }
+        
         Debug.Log(rigidbody2d.velocity);
     }
 
@@ -57,7 +75,7 @@ public class PlayerController : MonoBehaviour
 
     private bool IsGrounded()
     {
-            RaycastHit2D hit = Physics2D.Raycast(rigidbody2d.position, Vector2.down, distance, LayerMask.GetMask("Ground"));
-            return hit.collider != null;
+           return Physics2D.OverlapCircle(groundCheck.position, distance, LayerMask.GetMask("Ground"));
+            
     }
 }
