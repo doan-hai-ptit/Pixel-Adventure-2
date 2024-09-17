@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2214493016807635138}
   - component: {fileID: 1963546819697497813}
   - component: {fileID: 9003615352211150535}
-  - component: {fileID: 691999254835397652}
+  - component: {fileID: 671846720207546273}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -35,6 +35,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3247132631266073090}
+  - {fileID: 5418548454330982338}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1391065302274322416
@@ -153,8 +154,9 @@ MonoBehaviour:
     m_Flags: 0
   moveSpeed: 450
   jumpSpeed: 17
-  distance: 0.05
+  distance: 1
   groundCheck: {fileID: 3247132631266073090}
+  wallCheck: {fileID: 5418548454330982338}
 --- !u!50 &1963546819697497813
 Rigidbody2D:
   serializedVersion: 4
@@ -203,8 +205,8 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!60 &691999254835397652
-PolygonCollider2D:
+--- !u!61 &671846720207546273
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -235,7 +237,7 @@ PolygonCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.031948686, y: -0.18480587}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -245,21 +247,9 @@ PolygonCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -0.60271263, y: 0.6302961}
-      - {x: -0.6757088, y: 0.45511103}
-      - {x: -0.6534214, y: -0.32481492}
-      - {x: -0.5865493, y: -0.7059286}
-      - {x: -0.50920105, y: -0.80548114}
-      - {x: -0.42765713, y: -0.9387935}
-      - {x: 0.47869492, y: -0.93266666}
-      - {x: 0.4856186, y: -0.9401481}
-      - {x: 0.6373768, y: -0.71864384}
-      - {x: 0.72614133, y: -0.23775145}
-      - {x: 0.7159214, y: 0.45557365}
-      - {x: 0.5834923, y: 0.6527406}
-  m_UseDelaunayMesh: 0
+  serializedVersion: 2
+  m_Size: {x: 1.0612428, y: 1.5202913}
+  m_EdgeRadius: 0
 --- !u!1 &1059217209563369249
 GameObject:
   m_ObjectHideFlags: 0
@@ -285,7 +275,38 @@ Transform:
   m_GameObject: {fileID: 1059217209563369249}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.95, z: 0}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7928655594986370330}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2194087844209779477
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5418548454330982338}
+  m_Layer: 0
+  m_Name: WallCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5418548454330982338
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2194087844209779477}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.66, y: -1.01, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem; 
 
@@ -16,8 +17,13 @@ public class PlayerController : MonoBehaviour
     float move;
     //private float horizontal;
     
-    // Variables related to checking ground
+    // Variables related to checking isground
     public Transform groundCheck;
+    
+    // Variables related to checking isWalled
+    public Transform wallCheck;
+    private bool isWallSliding;
+    private float wallSlidingSpeed = 2f;
     
     // Variables related to animation
     Animator animator;
@@ -63,8 +69,8 @@ public class PlayerController : MonoBehaviour
             Jump();
                     
         }
-        
-        Debug.Log(rigidbody2d.velocity);
+        WallSide();
+        Debug.Log(Vector2.down);
     }
 
     private void Jump()
@@ -75,7 +81,25 @@ public class PlayerController : MonoBehaviour
 
     private bool IsGrounded()
     {
-           return Physics2D.OverlapCircle(groundCheck.position, distance, LayerMask.GetMask("Ground"));
+           return Physics2D.OverlapBox(rigidbody2d.position + Vector2.down, new Vector2(distance, 0.1f), 0.0f, LayerMask.GetMask("Ground"));
             
+    }
+
+    private bool IsWalled()
+    {
+        return Physics2D.OverlapCircle(rigidbody2d.position, distance, LayerMask.GetMask("Wall"));
+    }
+
+    private void WallSide()
+    {
+        if (IsWalled() && !IsGrounded() && moveDirection != 0.0f)
+        {
+            isWallSliding = true;
+            rigidbody2d.velocity = new Vector2(rigidbody2d.velocity.x, Mathf.Clamp(rigidbody2d.velocity.y, -wallSlidingSpeed, float.MaxValue));
+        }
+        else
+        {
+            isWallSliding = false;
+        }
     }
 }
