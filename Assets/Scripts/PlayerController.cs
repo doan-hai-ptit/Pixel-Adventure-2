@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     
     // Variables related to checking isWalled
     public Transform wallCheck;
-    private bool isWallSliding;
+    private bool isWallSliding = false;
     private float wallSlidingSpeed = 2f;
     
     // Variables related to animation
@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //horizontal = Input.GetAxisRaw("Horizontal");
+        //horizontal = Input.GetAxis("Horizontal");
         move = moveAction.ReadValue<float>();
         if (!Mathf.Approximately(move, 0.0f))
         {
@@ -52,7 +52,8 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("Direction", moveDirection);
         animator.SetFloat("Speed", Mathf.Abs(move));
         animator.SetFloat("yVelocity", rigidbody2d.velocity.y);
-        animator.SetBool("Jump", !IsGrounded());
+        animator.SetBool("Jump", jumpAction.IsPressed() || (!IsGrounded() && !IsWalled()));
+        animator.SetBool("WallJump", IsWalled()&&!IsGrounded() );
         //if (IsGrounded())
         //{
             //Time.timeScale = 0.0f;
@@ -62,9 +63,12 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rigidbody2d.velocity = new Vector2(move * moveSpeed * Time.deltaTime, rigidbody2d.velocity.y);
+        if (!isWallSliding)
+        {
+            rigidbody2d.velocity = new Vector2(move * moveSpeed * Time.deltaTime, rigidbody2d.velocity.y);
+        }
         //rigidbody2d.velocity = new Vector2(horizontal * moveSpeed * Time.deltaTime, rigidbody2d.velocity.y);
-        if (jumpAction.IsPressed() && IsGrounded())
+        if (jumpAction.IsPressed() && (IsGrounded() || IsWalled()))
         {
             Jump();
                     
@@ -75,19 +79,20 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
+        animator.SetBool("Jump", true);
         rigidbody2d.velocity = new Vector2(rigidbody2d.velocity.x, jumpSpeed);
         
     }
 
     private bool IsGrounded()
-    {
-           return Physics2D.OverlapBox(rigidbody2d.position + Vector2.down, new Vector2(distance, 0.1f), 0.0f, LayerMask.GetMask("Ground"));
+    { 
+        return Physics2D.OverlapBox(rigidbody2d.position + Vector2.down, new Vector2(1.0f, 0.1f), 0.0f, LayerMask.GetMask("Ground"));
             
     }
 
     private bool IsWalled()
     {
-        return Physics2D.OverlapCircle(rigidbody2d.position, distance, LayerMask.GetMask("Wall"));
+        return Physics2D.OverlapBox(rigidbody2d.position, new Vector2(distance, distance), 0.0f, LayerMask.GetMask("Wall"));
     }
 
     private void WallSide()
