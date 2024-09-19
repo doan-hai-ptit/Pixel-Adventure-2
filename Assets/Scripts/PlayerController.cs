@@ -9,9 +9,8 @@ public class PlayerController : MonoBehaviour
 {
     // Variables related to player character movement
     public InputAction moveAction;
-    //public InputAction jumpAction;
     public float moveSpeed = 400.0f;
-    public float jumpSpeed = 2.0f;
+    public float jumpSpeed = 26.0f;
     public float distance = 1f;
     Rigidbody2D rigidbody2d;
     //float move;
@@ -29,6 +28,10 @@ public class PlayerController : MonoBehaviour
     // Variables related to animation
     Animator animator;
     float moveDirection = 1f;
+    
+    // Variables related to player character movement on wall
+    private Vector2 wallJumpPower = new Vector2 (26.0f, 26.0f);
+    
     
     // Start is called before the first frame update
     void Start()
@@ -63,17 +66,23 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("Speed", Mathf.Abs(horizontal));
         animator.SetFloat("yVelocity", rigidbody2d.velocity.y);
         animator.SetFloat("WallSlidingDirection", wallSlidingDirection);
-        animator.SetBool("Jump", Input.GetButtonDown("Jump") || (!IsGrounded() && !IsWalled()));
         animator.SetBool("WallJump", IsWalled()&&!IsGrounded() );
+        animator.SetBool("Jump", Input.GetButtonDown("Jump") || (!IsGrounded() && !IsWalled()));
         
         //if (IsGrounded())
         //{
             //Time.timeScale = 0.0f;
         //}
-        if (Input.GetButtonDown("Jump") && (IsGrounded() || IsWalled()))
+        Debug.Log(rigidbody2d.velocity);
+        if (Input.GetButtonDown("Jump") && IsGrounded())
         {
             Jump();
                     
+        }
+
+        if (Input.GetButtonDown("Jump") && IsWalled() && !IsGrounded())
+        {
+            WallJump();
         }
      
     }
@@ -81,20 +90,19 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //if (!isWallSliding)
-        //{
+        if (!isWallSliding || moveDirection != wallSlidingDirection || wallSlidingDirection == 0.0f)
+        {
             rigidbody2d.velocity = new Vector2(horizontal * moveSpeed * Time.deltaTime, rigidbody2d.velocity.y);
-        //}
-        //rigidbody2d.velocity = new Vector2(horizontal * moveSpeed * Time.deltaTime, rigidbody2d.velocity.y);
+        }
+        // rigidbody2d.velocity = new Vector2(horizontal * moveSpeed * Time.deltaTime, rigidbody2d.velocity.y);
         
-
+        
         WallSide();
-        
     }
 
     private void Jump()
     {
-        animator.SetBool("Jump", true);
+        //animator.SetBool("Jump", true);
         rigidbody2d.velocity = new Vector2(rigidbody2d.velocity.x, jumpSpeed);
         
     }
@@ -130,4 +138,11 @@ public class PlayerController : MonoBehaviour
     {
         return Physics2D.OverlapBox(rigidbody2d.position - new Vector2(0.6f, 0), new Vector2(0.1f, distance - 0.6f), 0.0f, LayerMask.GetMask("Wall"));
     }
+
+    private void WallJump()
+    {   
+        rigidbody2d.velocity = new Vector2(-10.0f * wallSlidingDirection, jumpSpeed);
+        moveDirection = -wallSlidingDirection;
+    }
+    
 }
