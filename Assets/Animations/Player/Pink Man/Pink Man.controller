@@ -49,7 +49,7 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: Right
     m_Mirror: 0
-  m_BlendParameter: Direction
+  m_BlendParameter: WallSlidingDirection
   m_BlendParameterY: Right
   m_MinThreshold: -1
   m_MaxThreshold: 1
@@ -401,6 +401,12 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
+  - m_Name: WallSlidingDirection
+    m_Type: 1
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -619,6 +625,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: WallJump
+    m_EventTreshold: 0
+  - m_ConditionMode: 4
+    m_ConditionEvent: yVelocity
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 2720863802465428768}
