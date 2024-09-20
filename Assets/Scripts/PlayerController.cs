@@ -11,7 +11,9 @@ public class PlayerController : MonoBehaviour
     public InputAction moveAction;
     public float moveSpeed = 400.0f;
     public float jumpSpeed = 26.0f;
+    public float doubleJumpSpeed = 50.0f;
     public float distance = 1f;
+    public bool doubleJump = false;
     Rigidbody2D rigidbody2d;
     //float move;
     private float horizontal;
@@ -29,8 +31,6 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     float moveDirection = 1f;
     
-    // Variables related to player character movement on wall
-    private Vector2 wallJumpPower = new Vector2 (26.0f, 26.0f);
     
     
     // Start is called before the first frame update
@@ -52,7 +52,6 @@ public class PlayerController : MonoBehaviour
            moveDirection = horizontal;
 
         }
-
         if (IsLeftWallSliding())
         {
             wallSlidingDirection = -1.0f;
@@ -62,8 +61,37 @@ public class PlayerController : MonoBehaviour
             wallSlidingDirection = 1.0f;
         }
 
+        if (IsGrounded())
+        {
+            doubleJump = false;
+            Debug.Log("jfdjd");
+        }
+        if (Input.GetButtonDown("Jump"))
+        {
+            if (IsGrounded() || doubleJump)
+            {
+                Jump();
+                doubleJump = true;
+                Debug.Log(doubleJump);
+            }
+                    
+        }
+        //else if (Input.GetButtonUp("Jump") && doubleJump)
+        //{
+            //DoubleJump();
+            //doubleJump = false;
+        //}
+        else if (Input.GetButtonDown("Jump") && IsWalled() && !IsGrounded())
+        {
+            WallJump();
+            //doubleJump = true;
+        }
+
+        
+        
+        //Set animations
         animator.SetFloat("Direction", moveDirection);
-        animator.SetFloat("Speed", Mathf.Abs(horizontal));
+        animator.SetFloat("Speed", Mathf.Abs(rigidbody2d.velocity.x));
         animator.SetFloat("yVelocity", rigidbody2d.velocity.y);
         animator.SetFloat("WallSlidingDirection", wallSlidingDirection);
         animator.SetBool("WallJump", IsWalled()&&!IsGrounded() );
@@ -73,24 +101,13 @@ public class PlayerController : MonoBehaviour
         //{
             //Time.timeScale = 0.0f;
         //}
-        Debug.Log(rigidbody2d.velocity);
-        if (Input.GetButtonDown("Jump") && IsGrounded())
-        {
-            Jump();
-                    
-        }
-
-        if (Input.GetButtonDown("Jump") && IsWalled() && !IsGrounded())
-        {
-            WallJump();
-        }
      
     }
         
 
     private void FixedUpdate()
     {
-        if (!isWallSliding || moveDirection != wallSlidingDirection || wallSlidingDirection == 0.0f)
+        if (!isWallSliding || moveDirection != wallSlidingDirection)
         {
             rigidbody2d.velocity = new Vector2(horizontal * moveSpeed * Time.deltaTime, rigidbody2d.velocity.y);
         }
@@ -106,7 +123,16 @@ public class PlayerController : MonoBehaviour
         rigidbody2d.velocity = new Vector2(rigidbody2d.velocity.x, jumpSpeed);
         
     }
+    private void WallJump()
+    {   
+        rigidbody2d.velocity = new Vector2(-20.0f * wallSlidingDirection, jumpSpeed);
+        moveDirection = -wallSlidingDirection;
+    }
 
+    private void DoubleJump()
+    {
+        rigidbody2d.velocity = new Vector2(rigidbody2d.velocity.x, doubleJumpSpeed);
+    }
     private bool IsGrounded()
     { 
         return Physics2D.OverlapBox(rigidbody2d.position + Vector2.down, new Vector2(0.9f, 0.1f), 0.0f, LayerMask.GetMask("Ground"));
@@ -139,10 +165,6 @@ public class PlayerController : MonoBehaviour
         return Physics2D.OverlapBox(rigidbody2d.position - new Vector2(0.6f, 0), new Vector2(0.1f, distance - 0.6f), 0.0f, LayerMask.GetMask("Wall"));
     }
 
-    private void WallJump()
-    {   
-        rigidbody2d.velocity = new Vector2(-10.0f * wallSlidingDirection, jumpSpeed);
-        moveDirection = -wallSlidingDirection;
-    }
+    
     
 }
