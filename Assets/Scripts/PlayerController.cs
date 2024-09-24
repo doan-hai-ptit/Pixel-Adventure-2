@@ -8,12 +8,14 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     // Variables related to player character movement
-    public InputAction moveAction;
+    //public InputAction moveAction;
     public float moveSpeed = 400.0f;
     public float jumpSpeed = 26.0f;
     public float doubleJumpSpeed = 50.0f;
     public float distance = 1f;
     public bool doubleJump = false;
+    public bool hasDoubleJump = false;
+    public bool hasWallJump = false;
     Rigidbody2D rigidbody2d;
     //float move;
     private float horizontal;
@@ -31,13 +33,11 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     float moveDirection = 1f;
     
-    
-    
     // Start is called before the first frame update
     void Start()
     {
         //jumpAction.Enable();
-        moveAction.Enable();
+        //moveAction.Enable();
         animator = GetComponent<Animator>();
         rigidbody2d = GetComponent<Rigidbody2D>();
     }
@@ -61,33 +61,34 @@ public class PlayerController : MonoBehaviour
             wallSlidingDirection = 1.0f;
         }
 
-        if (IsGrounded())
+        if ((IsGrounded() || IsWalled()) && rigidbody2d.velocity.y <= 0)
         {
             doubleJump = false;
-            Debug.Log("jfdjd");
+            hasDoubleJump = false;
+            hasWallJump = false;
+        }
+        else if(!hasDoubleJump)
+        {
+            doubleJump = true;
         }
         if (Input.GetButtonDown("Jump"))
         {
-            if (IsGrounded() || doubleJump)
+            if (!IsWalled())
             {
-                Jump();
-                doubleJump = true;
-                Debug.Log(doubleJump);
+                if (IsGrounded() || doubleJump)
+                {
+                    if(doubleJump) hasDoubleJump = true;
+                    doubleJump = !doubleJump;
+                    Jump();
+                }
             }
-                    
-        }
-        //else if (Input.GetButtonUp("Jump") && doubleJump)
-        //{
-            //DoubleJump();
-            //doubleJump = false;
-        //}
-        else if (Input.GetButtonDown("Jump") && IsWalled() && !IsGrounded())
-        {
-            WallJump();
-            //doubleJump = true;
+            else
+            {
+                doubleJump = !doubleJump;
+                WallJump();
+            }
         }
 
-        
         
         //Set animations
         animator.SetFloat("Direction", moveDirection);
@@ -95,20 +96,18 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("yVelocity", rigidbody2d.velocity.y);
         animator.SetFloat("WallSlidingDirection", wallSlidingDirection);
         animator.SetBool("WallJump", IsWalled()&&!IsGrounded() );
-        animator.SetBool("Jump", Input.GetButtonDown("Jump") || (!IsGrounded() && !IsWalled()));
+        animator.SetBool("Jump", Input.GetButtonDown("Jump") || (!IsGrounded()));
+        animator.SetBool("DoubleJump", doubleJump);
         
-        //if (IsGrounded())
-        //{
-            //Time.timeScale = 0.0f;
-        //}
      
     }
         
 
     private void FixedUpdate()
     {
-        if (!isWallSliding || moveDirection != wallSlidingDirection)
+        if (!isWallSliding || (moveDirection != wallSlidingDirection && !hasWallJump)) // loi wallJump o day
         {
+            
             rigidbody2d.velocity = new Vector2(horizontal * moveSpeed * Time.deltaTime, rigidbody2d.velocity.y);
         }
         // rigidbody2d.velocity = new Vector2(horizontal * moveSpeed * Time.deltaTime, rigidbody2d.velocity.y);
@@ -125,17 +124,19 @@ public class PlayerController : MonoBehaviour
     }
     private void WallJump()
     {   
+        hasWallJump = true;
         rigidbody2d.velocity = new Vector2(-20.0f * wallSlidingDirection, jumpSpeed);
         moveDirection = -wallSlidingDirection;
     }
 
     private void DoubleJump()
     {
+        //animator.SetTrigger("DoubleJump");
         rigidbody2d.velocity = new Vector2(rigidbody2d.velocity.x, doubleJumpSpeed);
     }
     private bool IsGrounded()
     { 
-        return Physics2D.OverlapBox(rigidbody2d.position + Vector2.down, new Vector2(0.9f, 0.1f), 0.0f, LayerMask.GetMask("Ground"));
+        return Physics2D.OverlapBox(rigidbody2d.position + Vector2.down, new Vector2(0.9f, 0.1f), 0.0f, LayerMask.GetMask("Ground")) || Physics2D.OverlapBox(rigidbody2d.position + Vector2.down, new Vector2(0.9f, 0.1f), 0.0f, LayerMask.GetMask("Platform"));
             
     }
 
