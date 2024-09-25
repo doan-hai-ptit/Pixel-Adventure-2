@@ -40,6 +40,8 @@ public class PlayerController : MonoBehaviour
         //moveAction.Enable();
         animator = GetComponent<Animator>();
         rigidbody2d = GetComponent<Rigidbody2D>();
+        //QualitySettings.vSyncCount = 0;
+        //Application.targetFrameRate = 10;
     }
 
     // Update is called once per frame
@@ -88,7 +90,7 @@ public class PlayerController : MonoBehaviour
                 WallJump();
             }
         }
-
+        //Debug.Log(rigidbody2d.velocity);
         
         //Set animations
         animator.SetFloat("Direction", moveDirection);
@@ -118,9 +120,7 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        //animator.SetBool("Jump", true);
         rigidbody2d.velocity = new Vector2(rigidbody2d.velocity.x, jumpSpeed);
-        
     }
     private void WallJump()
     {   
