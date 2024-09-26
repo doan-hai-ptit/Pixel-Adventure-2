@@ -13,9 +13,9 @@ public class PlayerController : MonoBehaviour
     public float jumpSpeed = 26.0f;
     public float doubleJumpSpeed = 50.0f;
     public float distance = 1f;
-    public bool doubleJump = false;
-    public bool hasDoubleJump = false;
-    public bool hasWallJump = false;
+    private bool doubleJump = false;
+    private bool hasDoubleJump = false;
+    private bool hasWallJump = false;
     Rigidbody2D rigidbody2d;
     //float move;
     private float horizontal;
@@ -33,6 +33,10 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     float moveDirection = 1f;
     
+    // Variables related to testing
+    public bool isgrounded;
+    public bool iswalled;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -47,6 +51,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        isgrounded = IsGrounded();
+        iswalled = IsWalled();
         horizontal = Input.GetAxisRaw("Horizontal");
         //move = moveAction.ReadValue<float>();
         if (!Mathf.Approximately(horizontal, 0.0f))
@@ -136,7 +142,7 @@ public class PlayerController : MonoBehaviour
     }
     private bool IsGrounded()
     { 
-        return Physics2D.OverlapBox(rigidbody2d.position + Vector2.down, new Vector2(0.9f, 0.1f), 0.0f, LayerMask.GetMask("Ground")) || Physics2D.OverlapBox(rigidbody2d.position + Vector2.down, new Vector2(0.9f, 0.1f), 0.0f, LayerMask.GetMask("Platform"));
+        return Physics2D.OverlapBox(rigidbody2d.position + Vector2.down, new Vector2(0.9f, 0.1f), 0.0f, LayerMask.GetMask("Ground")) || Physics2D.OverlapBox(rigidbody2d.position + Vector2.down, new Vector2(1.0f, 0.1f), 0.0f, LayerMask.GetMask("Platform"));
             
     }
 
@@ -159,11 +165,11 @@ public class PlayerController : MonoBehaviour
     }
     private bool IsRightWallSliding()
     {
-        return Physics2D.OverlapBox(rigidbody2d.position + new Vector2(0.6f, 0), new Vector2(0.1f, distance - 0.6f), 0.0f, LayerMask.GetMask("Wall"));
+        return Physics2D.OverlapBox(rigidbody2d.position + new Vector2(0.6f, 0), new Vector2(0.05f, distance), 0.0f, LayerMask.GetMask("Wall"));
     }
     private bool IsLeftWallSliding()
     {
-        return Physics2D.OverlapBox(rigidbody2d.position - new Vector2(0.6f, 0), new Vector2(0.1f, distance - 0.6f), 0.0f, LayerMask.GetMask("Wall"));
+        return Physics2D.OverlapBox(rigidbody2d.position - new Vector2(0.6f, 0), new Vector2(0.05f, distance), 0.0f, LayerMask.GetMask("Wall"));
     }
 
     

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 671846720207546273}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 4278371960119211202, guid: d348dff3819df794186a80cb95777629, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -102,44 +102,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204d86f7a55c8d442b84aa01230e4497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveAction:
-    m_Name: Move
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 57b8acbd-c9a8-409b-a010-d6a9265a35a0
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 1D Axis
-      m_Id: cd844fe4-a8d7-400c-9b1c-c29e41178b0b
-      m_Path: 1DAxis
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Move
-      m_Flags: 4
-    - m_Name: negative
-      m_Id: c58755a6-56db-435e-b47b-de3eae457f6f
-      m_Path: <Keyboard>/leftArrow
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Move
-      m_Flags: 8
-    - m_Name: positive
-      m_Id: 594edfd8-0e2f-4fe8-a4b0-87c267c97f54
-      m_Path: <Keyboard>/rightArrow
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Move
-      m_Flags: 8
-    m_Flags: 0
   moveSpeed: 450
   jumpSpeed: 26
-  distance: 1.6
+  doubleJumpSpeed: 50
+  distance: 1.75
   groundCheck: {fileID: 3247132631266073090}
   wallCheck: {fileID: 5418548454330982338}
+  isgrounded: 0
+  iswalled: 0
 --- !u!50 &1963546819697497813
 Rigidbody2D:
   serializedVersion: 4
@@ -220,7 +190,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.031948686, y: -0.18480587}
+  m_Offset: {x: 0.029581785, y: -0.18480587}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -231,7 +201,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.0612428, y: 1.5202913}
+  m_Size: {x: 1.0375726, y: 1.5202913}
   m_EdgeRadius: 0
 --- !u!1 &1059217209563369249
 GameObject:
@@ -258,7 +228,7 @@ Transform:
   m_GameObject: {fileID: 1059217209563369249}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalPosition: {x: 0.4, y: -0.94, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -289,7 +259,7 @@ Transform:
   m_GameObject: {fileID: 2194087844209779477}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.6, y: 0, z: 0}
+  m_LocalPosition: {x: 0.45, y: 0.55, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
