@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
     public Transform wallCheck;
     private bool isWallSliding = false;
     private float wallSlidingDirection = 0;
-    private float wallSlidingSpeed = 2f;
+    private float wallSlidingSpeed = 1f;
     
     // Variables related to animation
     Animator animator;
@@ -116,7 +116,7 @@ public class PlayerController : MonoBehaviour
         if (!isWallSliding || (moveDirection != wallSlidingDirection && !hasWallJump)) // loi wallJump o day
         {
             
-            rigidbody2d.velocity = new Vector2(horizontal * moveSpeed * Time.deltaTime, rigidbody2d.velocity.y);
+            rigidbody2d.velocity = new Vector2(horizontal * moveSpeed, rigidbody2d.velocity.y);
         }
         // rigidbody2d.velocity = new Vector2(horizontal * moveSpeed * Time.deltaTime, rigidbody2d.velocity.y);
         
@@ -165,11 +165,11 @@ public class PlayerController : MonoBehaviour
     }
     private bool IsRightWallSliding()
     {
-        return Physics2D.OverlapBox(rigidbody2d.position + new Vector2(0.6f, 0), new Vector2(0.05f, distance), 0.0f, LayerMask.GetMask("Wall"));
+        return Physics2D.OverlapBox(rigidbody2d.position + new Vector2(0.6f, -0.5f), new Vector2(0.05f, distance), 0.0f, LayerMask.GetMask("Wall"));
     }
     private bool IsLeftWallSliding()
     {
-        return Physics2D.OverlapBox(rigidbody2d.position - new Vector2(0.6f, 0), new Vector2(0.05f, distance), 0.0f, LayerMask.GetMask("Wall"));
+        return Physics2D.OverlapBox(rigidbody2d.position - new Vector2(0.6f, 0.5f), new Vector2(0.05f, distance), 0.0f, LayerMask.GetMask("Wall"));
     }
 
     
