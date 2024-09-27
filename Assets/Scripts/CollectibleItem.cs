@@ -15,7 +15,7 @@ public class CollectibleItem : MonoBehaviour
     private void Start()
     {
         animator = GetComponent<Animator>();
-        startFrame = Random.Range (0.0f, 1.0f);
+        startFrame = Random.Range (0.0f, 0.3f);
         animator.Play("Idle",0, startFrame);
     }
 

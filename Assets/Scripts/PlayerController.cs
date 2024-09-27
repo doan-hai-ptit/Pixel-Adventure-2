@@ -106,8 +106,11 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("WallJump", IsWalled()&&!IsGrounded() );
         animator.SetBool("Jump", Input.GetButtonDown("Jump") || (!IsGrounded()));
         animator.SetBool("DoubleJump", doubleJump);
-        
-     
+        //if (rigidbody2d.velocity.y > 43f)
+        //{
+         //   Time.timeScale = 0;
+        //}
+        Debug.Log(rigidbody2d.velocity);
     }
         
 
@@ -134,12 +137,7 @@ public class PlayerController : MonoBehaviour
         rigidbody2d.velocity = new Vector2(-20.0f * wallSlidingDirection, jumpSpeed);
         moveDirection = -wallSlidingDirection;
     }
-
-    private void DoubleJump()
-    {
-        //animator.SetTrigger("DoubleJump");
-        rigidbody2d.velocity = new Vector2(rigidbody2d.velocity.x, doubleJumpSpeed);
-    }
+    
     private bool IsGrounded()
     { 
         return Physics2D.OverlapBox(rigidbody2d.position + Vector2.down, new Vector2(0.9f, 0.1f), 0.0f, LayerMask.GetMask("Ground")) || Physics2D.OverlapBox(rigidbody2d.position + Vector2.down, new Vector2(1.0f, 0.1f), 0.0f, LayerMask.GetMask("Platform"));
