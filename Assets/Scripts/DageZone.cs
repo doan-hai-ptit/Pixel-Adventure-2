@@ -9,8 +9,8 @@ public class DageZone : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Animator animator = other.GetComponent<Animator>();
-            animator.SetTrigger("Hit");
+            PlayerController player = other.GetComponent<PlayerController>();
+            if(!player.isDead) player.Dead();
         }
     }
 }

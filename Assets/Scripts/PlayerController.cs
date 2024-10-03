@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem; 
+using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
@@ -34,8 +35,11 @@ public class PlayerController : MonoBehaviour
     float moveDirection = 1f;
     
     // Variables related to testing
-    public bool isgrounded;
-    public bool iswalled;
+    public bool isground;
+    public bool iswall;
+    public float xVelocity;
+    public float yVelocity;
+    public bool isDead {set; get;}
     
     // Start is called before the first frame update
     void Start()
@@ -44,6 +48,7 @@ public class PlayerController : MonoBehaviour
         //moveAction.Enable();
         animator = GetComponent<Animator>();
         rigidbody2d = GetComponent<Rigidbody2D>();
+        isDead = false;
         //QualitySettings.vSyncCount = 0;
         //Application.targetFrameRate = 10;
     }
@@ -51,8 +56,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        isgrounded = IsGrounded();
-        iswalled = IsWalled();
+        isground = IsGrounded();
+        iswall = IsWalled();
         horizontal = Input.GetAxisRaw("Horizontal");
         //move = moveAction.ReadValue<float>();
         if (!Mathf.Approximately(horizontal, 0.0f))
@@ -104,32 +109,50 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("yVelocity", rigidbody2d.velocity.y);
         animator.SetFloat("WallSlidingDirection", wallSlidingDirection);
         animator.SetBool("WallJump", IsWalled()&&!IsGrounded() );
-        animator.SetBool("Jump", Input.GetButtonDown("Jump") || (!IsGrounded()));
+        //animator.SetBool("Hit", isDead);
+        animator.SetBool("Jump", !IsGrounded() && !isDead); // loi thi them input.getbuttondown(jump);
         animator.SetBool("DoubleJump", doubleJump);
         //if (rigidbody2d.velocity.y > 43f)
         //{
          //   Time.timeScale = 0;
         //}
-        Debug.Log(rigidbody2d.velocity);
+        //Debug.Log(rigidbody2d.velocity);
     }
         
 
     private void FixedUpdate()
     {
-        if (!isWallSliding || (moveDirection != wallSlidingDirection && !hasWallJump)) // loi wallJump o day
+        if (!isDead)
         {
-            
-            rigidbody2d.velocity = new Vector2(horizontal * moveSpeed, rigidbody2d.velocity.y);
+            if (!isWallSliding || (moveDirection != wallSlidingDirection && !hasWallJump)) // loi wallJump o day
+            {
+                
+                rigidbody2d.velocity = new Vector2(horizontal * moveSpeed, rigidbody2d.velocity.y);
+            }
+            WallSide();
         }
+        else
+        {
+            if (rigidbody2d.velocity.y < 0)
+            {
+                rigidbody2d.velocity = new Vector2(moveDirection * -1, Math.Clamp(rigidbody2d.velocity.y, -30f, jumpSpeed));
+            }
+        }
+        //Debug.Log(rigidbody2d.velocity);
         // rigidbody2d.velocity = new Vector2(horizontal * moveSpeed * Time.deltaTime, rigidbody2d.velocity.y);
+       // else
+        //{
+        //if(isDead){
+           // Dead();
+        //}
         
         
-        WallSide();
     }
 
     private void Jump()
     {
         rigidbody2d.velocity = new Vector2(rigidbody2d.velocity.x, jumpSpeed);
+        //Debug.Log(rigidbody2d.velocity);
     }
     private void WallJump()
     {   
@@ -168,6 +191,15 @@ public class PlayerController : MonoBehaviour
     private bool IsLeftWallSliding()
     {
         return Physics2D.OverlapBox(rigidbody2d.position - new Vector2(0.6f, 0.5f), new Vector2(0.05f, distance), 0.0f, LayerMask.GetMask("Wall"));
+    }
+
+    public void Dead()
+    {
+        isDead = true;
+        animator.SetTrigger("Hit");
+        rigidbody2d.AddForce(new Vector2(rigidbody2d.velocity.x * xVelocity, yVelocity - rigidbody2d.velocity.y), ForceMode2D.Impulse);
+        BoxCollider2D collider2D = GetComponent<BoxCollider2D>();
+        collider2D.enabled = false;
     }
 
     
