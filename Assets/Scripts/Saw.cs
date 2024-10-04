@@ -49,8 +49,6 @@ public class Saw : MonoBehaviour
                 while ((startPos - endPos).magnitude > (point - startPos).magnitude)
                 {
                     Instantiate(chainPoint, point, Quaternion.identity, this.transform);
-                     Debug.Log("Added chain point");
-                    
                     point += direction * delta;
                 }
             }

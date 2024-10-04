@@ -20,12 +20,6 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D rigidbody2d;
     //float move;
     private float horizontal;
-    
-    // Variables related to checking isground
-    public Transform groundCheck;
-    
-    // Variables related to checking isWalled
-    public Transform wallCheck;
     private bool isWallSliding = false;
     private float wallSlidingDirection = 0;
     private float wallSlidingSpeed = 1f;
@@ -37,9 +31,12 @@ public class PlayerController : MonoBehaviour
     // Variables related to testing
     public bool isground;
     public bool iswall;
-    public float xVelocity;
-    public float yVelocity;
+    public float xVelocity = -2;
+    public float yVelocity = 20;
+    
+    // Variables related to hitting
     public bool isDead {set; get;}
+    private Vector2 startPosition;
     
     // Start is called before the first frame update
     void Start()
@@ -49,6 +46,7 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         rigidbody2d = GetComponent<Rigidbody2D>();
         isDead = false;
+        startPosition = transform.position;
         //QualitySettings.vSyncCount = 0;
         //Application.targetFrameRate = 10;
     }
@@ -84,23 +82,32 @@ public class PlayerController : MonoBehaviour
         {
             doubleJump = true;
         }
-        if (Input.GetButtonDown("Jump"))
+
+        if (!isDead)
         {
-            if (!IsWalled())
+            if (Input.GetButtonDown("Jump"))
             {
-                if (IsGrounded() || doubleJump)
+                if (!IsWalled())
                 {
-                    if(doubleJump) hasDoubleJump = true;
+                    if (IsGrounded() || doubleJump)
+                    {
+                        if(doubleJump) hasDoubleJump = true;
+                        doubleJump = !doubleJump;
+                        Jump();
+                    }
+                }
+                else
+                {
                     doubleJump = !doubleJump;
-                    Jump();
+                    WallJump();
                 }
             }
-            else
-            {
-                doubleJump = !doubleJump;
-                WallJump();
-            }
         }
+        //else
+        //{
+          //  Respawn(3.0f);
+           // Debug.Log("Respawn");
+        //}
         //Debug.Log(rigidbody2d.velocity);
         
         //Set animations
@@ -112,11 +119,6 @@ public class PlayerController : MonoBehaviour
         //animator.SetBool("Hit", isDead);
         animator.SetBool("Jump", !IsGrounded() && !isDead); // loi thi them input.getbuttondown(jump);
         animator.SetBool("DoubleJump", doubleJump);
-        //if (rigidbody2d.velocity.y > 43f)
-        //{
-         //   Time.timeScale = 0;
-        //}
-        //Debug.Log(rigidbody2d.velocity);
     }
         
 
@@ -138,21 +140,11 @@ public class PlayerController : MonoBehaviour
                 rigidbody2d.velocity = new Vector2(moveDirection * -1, Math.Clamp(rigidbody2d.velocity.y, -30f, jumpSpeed));
             }
         }
-        //Debug.Log(rigidbody2d.velocity);
-        // rigidbody2d.velocity = new Vector2(horizontal * moveSpeed * Time.deltaTime, rigidbody2d.velocity.y);
-       // else
-        //{
-        //if(isDead){
-           // Dead();
-        //}
-        
-        
     }
 
     private void Jump()
     {
         rigidbody2d.velocity = new Vector2(rigidbody2d.velocity.x, jumpSpeed);
-        //Debug.Log(rigidbody2d.velocity);
     }
     private void WallJump()
     {   
@@ -200,8 +192,18 @@ public class PlayerController : MonoBehaviour
         rigidbody2d.AddForce(new Vector2(rigidbody2d.velocity.x * xVelocity, yVelocity - rigidbody2d.velocity.y), ForceMode2D.Impulse);
         BoxCollider2D collider2D = GetComponent<BoxCollider2D>();
         collider2D.enabled = false;
+        StartCoroutine(Respawn(2.0f));
     }
 
-    
+    IEnumerator Respawn(float seconds)
+    {
+        Debug.Log("Afd");
+        yield return new WaitForSeconds(seconds);
+        BoxCollider2D collider2D = GetComponent<BoxCollider2D>();
+        animator.Play("Idle");
+        isDead = false;
+        collider2D.enabled = true;
+        transform.position = startPosition;
+    }
     
 }
