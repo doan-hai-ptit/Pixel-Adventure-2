@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
@@ -38,6 +39,10 @@ public class PlayerController : MonoBehaviour
     public bool isDead {set; get;}
     private Vector2 startPosition;
     
+    //Variables related to changing scene
+    public int numberOfFruitsMax = 100;
+    private int numberOfFruits;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -47,6 +52,7 @@ public class PlayerController : MonoBehaviour
         rigidbody2d = GetComponent<Rigidbody2D>();
         isDead = false;
         startPosition = transform.position;
+        numberOfFruits = numberOfFruitsMax;
         //QualitySettings.vSyncCount = 0;
         //Application.targetFrameRate = 10;
     }
@@ -103,12 +109,8 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-        //else
-        //{
-          //  Respawn(3.0f);
-           // Debug.Log("Respawn");
-        //}
-        //Debug.Log(rigidbody2d.velocity);
+        
+        
         
         //Set animations
         animator.SetFloat("Direction", moveDirection);
@@ -197,13 +199,28 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator Respawn(float seconds)
     {
-        Debug.Log("Afd");
         yield return new WaitForSeconds(seconds);
         BoxCollider2D collider2D = GetComponent<BoxCollider2D>();
         animator.Play("Idle");
         isDead = false;
         collider2D.enabled = true;
         transform.position = startPosition;
+    }
+
+    public void CollectedFruit()
+    {
+        numberOfFruits--;
+        ChangeScene();
+    }
+
+    private void ChangeScene()
+    {
+        if (numberOfFruits <= 0)
+        {
+            SceneController.instance.NextScene();
+        }
+
+        //numberOfFruits++;
     }
     
 }

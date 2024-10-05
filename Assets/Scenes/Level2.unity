@@ -988,8 +988,8 @@ Tilemap:
   - first: {x: -14, y: -3, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 1
-      m_TileSpriteIndex: 1
+      m_TileIndex: 9
+      m_TileSpriteIndex: 9
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -1199,7 +1199,7 @@ Tilemap:
   m_TileAssetArray:
   - m_RefCount: 3
     m_Data: {fileID: 11400000, guid: 784feaf8830dfec40826f75792ef6425, type: 2}
-  - m_RefCount: 8
+  - m_RefCount: 7
     m_Data: {fileID: 11400000, guid: 64b49de6e59eb1c488e2982b0e624536, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 01ba3bc7b78d0c94297d6c309c50aaca, type: 2}
@@ -1215,10 +1215,12 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 3be0055cb8bbda14190756e6963073f6, type: 2}
   - m_RefCount: 4
     m_Data: {fileID: 11400000, guid: 229af177c12a73a4daf637c2542fedb9, type: 2}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: 1583ddd288318d94fba7d772777ac3a4, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 3
     m_Data: {fileID: -3581127029532586042, guid: fc584d329b77b9545b9c9c8bb829e553, type: 3}
-  - m_RefCount: 8
+  - m_RefCount: 7
     m_Data: {fileID: 6516917985212256981, guid: fc584d329b77b9545b9c9c8bb829e553, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: -39983623799505075, guid: fc584d329b77b9545b9c9c8bb829e553, type: 3}
@@ -1234,6 +1236,8 @@ Tilemap:
     m_Data: {fileID: 4218957088357342075, guid: fc584d329b77b9545b9c9c8bb829e553, type: 3}
   - m_RefCount: 4
     m_Data: {fileID: 6918280329820428914, guid: fc584d329b77b9545b9c9c8bb829e553, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: -3253207453764529203, guid: fc584d329b77b9545b9c9c8bb829e553, type: 3}
   m_TileMatrixArray:
   - m_RefCount: 27
     m_Data:
@@ -1403,6 +1407,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2214493016807635138, guid: 0c31253ea6fdd674680915f25d1aa8a1, type: 3}
       propertyPath: yVelocity
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2214493016807635138, guid: 0c31253ea6fdd674680915f25d1aa8a1, type: 3}
+      propertyPath: numberOfFruitsMax
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 7928655594986370330, guid: 0c31253ea6fdd674680915f25d1aa8a1, type: 3}
