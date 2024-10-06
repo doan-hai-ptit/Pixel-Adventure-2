@@ -78,7 +78,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 5
   m_Sprite: {fileID: 4278371960119211202, guid: d348dff3819df794186a80cb95777629, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -105,11 +105,12 @@ MonoBehaviour:
   moveSpeed: 9
   jumpSpeed: 26
   doubleJumpSpeed: 50
-  distance: 0.7
-  groundCheck: {fileID: 3247132631266073090}
-  wallCheck: {fileID: 5418548454330982338}
-  isgrounded: 0
-  iswalled: 0
+  distance: 1.44
+  isground: 0
+  iswall: 0
+  xVelocity: -2
+  yVelocity: 20
+  numberOfFruitsMax: 100
 --- !u!50 &1963546819697497813
 Rigidbody2D:
   serializedVersion: 4
@@ -228,7 +229,7 @@ Transform:
   m_GameObject: {fileID: 1059217209563369249}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.4, y: -0.94, z: 0}
+  m_LocalPosition: {x: -0.6, y: -0.22, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -259,7 +260,7 @@ Transform:
   m_GameObject: {fileID: 2194087844209779477}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.53, y: -0.6, z: 0}
+  m_LocalPosition: {x: -0.6, y: -0.22, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

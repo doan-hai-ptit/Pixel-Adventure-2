@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         isground = IsGrounded();
-        iswall = IsWalled();
+        iswall = IsLeftWallSliding();
         horizontal = Input.GetAxisRaw("Horizontal");
         //move = moveAction.ReadValue<float>();
         if (!Mathf.Approximately(horizontal, 0.0f))
@@ -109,7 +109,6 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-        
         
         
         //Set animations
@@ -180,11 +179,11 @@ public class PlayerController : MonoBehaviour
     }
     private bool IsRightWallSliding()
     {
-        return Physics2D.OverlapBox(rigidbody2d.position + new Vector2(0.6f, -0.5f), new Vector2(0.05f, distance), 0.0f, LayerMask.GetMask("Wall"));
+        return Physics2D.OverlapBox(rigidbody2d.position + new Vector2(0.6f, -0.22f), new Vector2(0.05f, distance), 0.0f, LayerMask.GetMask("Wall"));
     }
     private bool IsLeftWallSliding()
     {
-        return Physics2D.OverlapBox(rigidbody2d.position - new Vector2(0.6f, 0.5f), new Vector2(0.05f, distance), 0.0f, LayerMask.GetMask("Wall"));
+        return Physics2D.OverlapBox(rigidbody2d.position - new Vector2(0.6f, 0.22f), new Vector2(0.18f, distance), 0.0f, LayerMask.GetMask("Wall"));
     }
 
     public void Dead()
