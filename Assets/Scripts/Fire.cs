@@ -20,7 +20,7 @@ public class Fire : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (Collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
             Debug.Log("Fire");
             animator.SetTrigger("Hit");
