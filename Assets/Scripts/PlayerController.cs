@@ -153,7 +153,7 @@ public class PlayerController : MonoBehaviour
         {
             if (rigidbody2d.velocity.y < 0)
             {
-                rigidbody2d.velocity = new Vector2(moveDirection * -1, Math.Clamp(rigidbody2d.velocity.y, -30f, jumpSpeed));
+                rigidbody2d.velocity = new Vector2(moveDirection * -1, Math.Clamp(rigidbody2d.velocity.y, -25f, jumpSpeed));
             }
         }
     }
