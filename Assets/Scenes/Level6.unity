@@ -151,14 +151,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5a942b9226b7924992dc2d47631a9c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  closedLoop: 1
+  closedLoop: 0
   clockWise: 0
   chainPointPrefab: {fileID: 7303154004463013606, guid: 6a890ac45a222a647853054d66d2772b, type: 3}
   spikedBallPrefab: {fileID: 5621161306825262683, guid: 6f1c13783d888544687449df211a9ce8, type: 3}
-  radius: 3.98
+  radius: 4
   delta: 0.75
-  angleRange: 360
-  startAngle: 180
+  angleRange: 147
+  startAngle: 55
   rotationSpeed: 2
 --- !u!4 &198858401
 Transform:
