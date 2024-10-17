@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class SpikedBallTrap : MonoBehaviour
 {
-    
+    // Variables related to setting mode rotation
     [SerializeField] private bool closedLoop;
     [SerializeField] private bool clockWise;
     [SerializeField] private GameObject chainPointPrefab;
@@ -17,12 +17,14 @@ public class SpikedBallTrap : MonoBehaviour
     [SerializeField, Range(0f, 360f)] private float angleRange;
     [SerializeField, Range(0f, 360f)] private float startAngle;
     [SerializeField] private float rotationSpeed;
+    // varialles related to spikeBall movement
     private int segments = 36;
     private Vector2[] points = new Vector2[36];// goc la 36
     private Vector2[] reversedPoints = new Vector2[36];// goc la 36
     private float[] angleList = new float[37];
     private Rigidbody2D spikedBallRB;
     private GameObject spikedBall;
+    // varialles related to chains movement
     private List<Rigidbody2D> chainPointRB = new List<Rigidbody2D>();
     private List<Vector2> movePoints = new List <Vector2>();
     private List<Vector2[]> moveChainsPoints = new List <Vector2[]>();// di chuyen luc dau
@@ -100,7 +102,6 @@ public class SpikedBallTrap : MonoBehaviour
             point += direction * delta;
         }
     }
-
     private void CreateSpikedBall()
     {
         Vector2 point = new Vector2(this.transform.position.x, this.transform.position.y) + new Vector2(this.radius * Mathf.Sin(startAngle * Mathf.Deg2Rad),-this.radius * Mathf.Cos(startAngle * Mathf.Deg2Rad));
@@ -113,7 +114,6 @@ public class SpikedBallTrap : MonoBehaviour
             if (angleList[i] < radianAngle)
             {
                 this.startPoint = i;
-                Debug.Log(startPoint);
                 break;
             }   
         }
@@ -124,7 +124,6 @@ public class SpikedBallTrap : MonoBehaviour
         }
         
     }
-
     private void MoveSpikedBall()
     {
         Sequence s1 = DOTween.Sequence();
@@ -148,7 +147,6 @@ public class SpikedBallTrap : MonoBehaviour
             }
         });
     }
-
     private void MoveChainPoint()
     {
         for (int i = chainPointRB.Count -1; i >=0; i--)
@@ -156,26 +154,24 @@ public class SpikedBallTrap : MonoBehaviour
             Sequence s1 = DOTween.Sequence();
             var i1 = i;
             s1.Append(chainPointRB[i]
-                .DOPath(moveChainsPoints[i], rotationSpeed * moveChainsPoints[i].Length / 36, PathType.Linear)
+                .DOPath(moveChainsPoints[i], (rotationSpeed * movePoints.Count) / 36, PathType.Linear)
                 .SetEase(Ease.Linear)).OnComplete(() =>
             {
                 //s1.Kill();
                 Sequence s2 = DOTween.Sequence();
                 if (closedLoop)
                 {
-                    s2.Append(chainPointRB[i].DOPath(chainsPoints[i], rotationSpeed, PathType.Linear).SetEase(Ease.Linear));
+                    s2.Append(chainPointRB[i1].DOPath(chainsPoints[i1], rotationSpeed, PathType.Linear).SetEase(Ease.Linear));
                     s2.SetLoops(-1, LoopType.Restart);
                 }
                 else
                 {
-                    s2.Append(chainPointRB[i].DOPath(reversedChainPoints[i], rotationSpeed, PathType.Linear).SetEase(Ease.Linear));
+                    s2.Append(chainPointRB[i1].DOPath(reversedChainPoints[i1], rotationSpeed, PathType.Linear).SetEase(Ease.Linear));
                     s2.SetLoops(-1, LoopType.Yoyo);
                 }
             });
         }
     }
-    
-    
     private void OnDrawGizmos()
     {
         //Draw radius

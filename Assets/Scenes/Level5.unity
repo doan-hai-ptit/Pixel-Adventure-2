@@ -3788,6 +3788,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 2214493016807635138, guid: 0c31253ea6fdd674680915f25d1aa8a1, type: 3}
+      propertyPath: numberOfFruitsMax
+      value: 17
+      objectReference: {fileID: 0}
     - target: {fileID: 7928655594986370330, guid: 0c31253ea6fdd674680915f25d1aa8a1, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
