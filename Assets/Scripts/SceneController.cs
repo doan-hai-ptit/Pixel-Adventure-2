@@ -22,7 +22,6 @@ public class SceneController : MonoBehaviour
 
     public void NextScene()
     {
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         StartCoroutine(LoadLevel());
     }
     
@@ -33,6 +32,7 @@ public class SceneController : MonoBehaviour
 
     IEnumerator LoadLevel()
     {
+        Debug.Log(SceneManager.GetActiveScene().name);
         animator.SetTrigger("End");
         yield return new WaitForSeconds(1);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);

@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour
     
     //Variables related to changing scene
     public int numberOfFruitsMax = 100;
-    private int numberOfFruits;
+    private int numberOfFruits = 0; 
     
     // Start is called before the first frame update
     void Start()
@@ -238,7 +238,7 @@ public class PlayerController : MonoBehaviour
 
     private void ChangeScene()
     {
-        if (numberOfFruits <= 0)
+        if (numberOfFruits == 0)
         {
             SceneController.instance.NextScene();
         }

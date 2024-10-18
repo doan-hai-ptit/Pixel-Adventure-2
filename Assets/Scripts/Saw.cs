@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -95,5 +96,10 @@ public class Saw : MonoBehaviour
             Vector2 pos = new Vector2(sawPoints[i].x,sawPoints[i].y);
             Gizmos.DrawSphere(pos,0.3f);
         }
+    }
+
+    public void OnDestroy()
+    {
+        DOTween.KillAll();
     }
 }

@@ -172,6 +172,10 @@ public class SpikedBallTrap : MonoBehaviour
             });
         }
     }
+    public void OnDestroy()
+    {
+        DOTween.KillAll();
+    }
     private void OnDrawGizmos()
     {
         //Draw radius
