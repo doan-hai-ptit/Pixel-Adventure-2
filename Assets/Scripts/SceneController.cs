@@ -32,7 +32,6 @@ public class SceneController : MonoBehaviour
 
     IEnumerator LoadLevel()
     {
-        Debug.Log(SceneManager.GetActiveScene().name);
         animator.SetTrigger("End");
         yield return new WaitForSeconds(1);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);

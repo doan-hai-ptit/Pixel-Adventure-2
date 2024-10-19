@@ -10,12 +10,9 @@ public class Saw : MonoBehaviour
     [SerializeField] private Vector2[] sawPoints;
     [SerializeField] private GameObject chainPoint;
     [SerializeField] private GameObject sawPrefab;
-
     [SerializeField] private bool chainVisible;
     [SerializeField] private float delta;
-
     [SerializeField] private float sawSpeed;
-
     [SerializeField] private bool spriteToTheFront;
     private GameObject sawBlade;
     private Rigidbody2D sawBladeRB;
