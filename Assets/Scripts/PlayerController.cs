@@ -213,6 +213,7 @@ public class PlayerController : MonoBehaviour
     public void Dead()
     {
         isDead = true;
+        SceneController.instance.ShakeCamera(5, 0.125f);
         animator.SetTrigger("Hit");
         rigidbody2d.AddForce(new Vector2(rigidbody2d.velocity.x * xVelocity, yVelocity - rigidbody2d.velocity.y), ForceMode2D.Impulse);
         BoxCollider2D collider2D = GetComponent<BoxCollider2D>();
@@ -223,11 +224,12 @@ public class PlayerController : MonoBehaviour
     IEnumerator Respawn(float seconds)
     {
         yield return new WaitForSeconds(seconds);
-        BoxCollider2D collider2D = GetComponent<BoxCollider2D>();
-        animator.Play("Idle");
-        isDead = false;
-        collider2D.enabled = true;
-        transform.position = startPosition;
+        SceneController.instance.ReloadScene();
+        //BoxCollider2D collider2D = GetComponent<BoxCollider2D>();
+        //animator.Play("Idle");
+        //isDead = false;
+        //collider2D.enabled = true;
+        //transform.position = startPosition;
     }
 
     public void CollectedFruit()
