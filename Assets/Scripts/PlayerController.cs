@@ -22,7 +22,6 @@ public class PlayerController : MonoBehaviour
     private bool hasDoubleJump = false;
     private bool hasWallJump = false;
     Rigidbody2D rigidbody2d;
-    
     //float move;
     private float horizontal;
     private bool isWallSliding = false;

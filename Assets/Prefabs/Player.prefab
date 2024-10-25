@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1963546819697497813}
   - component: {fileID: 9003615352211150535}
   - component: {fileID: 671846720207546273}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -222,7 +222,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3247132631266073090}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GoundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -253,7 +253,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5418548454330982338}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: WallCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
