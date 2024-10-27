@@ -37,4 +37,15 @@ public class CollectibleItem : MonoBehaviour
             animator.SetTrigger("Collected");
         }
     }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Player") && !collected)
+        {
+            PlayerController player = other.gameObject.GetComponent<PlayerController>();
+            player.CollectedFruit();
+            collected = true;
+            animator.SetTrigger("Collected");
+        }
+    }
 }

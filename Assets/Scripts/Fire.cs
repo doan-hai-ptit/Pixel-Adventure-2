@@ -11,7 +11,6 @@ public class Fire : MonoBehaviour
     [SerializeField] private GameObject player;
     private float activeTime = 0.9f;
     private float activationDelay = 0.3f;
-    
     // Start is called before the first frame update
     void Start()
     {

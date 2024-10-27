@@ -108,10 +108,10 @@ MonoBehaviour:
   distance: 1.4
   groundLayer:
     serializedVersion: 2
-    m_Bits: 832
+    m_Bits: 17216
   wallLayer:
     serializedVersion: 2
-    m_Bits: 640
+    m_Bits: 17024
   platformLayer:
     serializedVersion: 2
     m_Bits: 0
