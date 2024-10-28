@@ -669,37 +669,6 @@ PolygonCollider2D:
       - {x: 0.25407416, y: 0.3399831}
       - {x: 0.1510607, y: 0.32756746}
   m_UseDelaunayMesh: 0
---- !u!1 &5856830156928981024
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6718306665690831943}
-  m_Layer: 14
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6718306665690831943
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5856830156928981024}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.461, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4737945422156219337}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7094468891722554516
 GameObject:
   m_ObjectHideFlags: 0
@@ -737,7 +706,6 @@ Transform:
   - {fileID: 3591376133710338590}
   - {fileID: 7582365739014981826}
   - {fileID: 865431548418690533}
-  - {fileID: 6718306665690831943}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8832601086026865177
@@ -804,7 +772,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84eaf16fc9ba0464987929682270da87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 3
+  health: 1
   debrises:
   - {fileID: 605391971864249507}
   - {fileID: 765277010749578440}
@@ -823,6 +791,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 1024
+  timer: 0.15
 --- !u!95 &4241132116413012649
 Animator:
   serializedVersion: 5

@@ -12,15 +12,17 @@ public class CollectibleItem : MonoBehaviour
     bool collected = false;
     float timeDestroyed = 0.25f;
     float startFrame = 0f;
+    Rigidbody2D rb2d;
     private void Start()
     {
+        rb2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         startFrame = Random.Range (0.0f, 0.2f);
         animator.Play("Idle",0, startFrame);
     }
 
     void Update()
-    {       
+    {
         if (collected)
         {
             timeDestroyed -= Time.deltaTime;

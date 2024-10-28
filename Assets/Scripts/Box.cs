@@ -8,35 +8,71 @@ public class Box : MonoBehaviour
     [SerializeField] GameObject[] debrises = new GameObject[4];
     [SerializeField] GameObject[] items = new GameObject[9];
     [SerializeField] LayerMask layerMask;
+    [SerializeField] float timer = 0;
     //[SerializeField] Vector2 froce;
     Animator animator;
     private bool isHitted = false;
+    private GameObject player;
+    private Rigidbody2D rb2d;
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         animator = GetComponent<Animator>();
+        rb2d = player.GetComponent<Rigidbody2D>();
         
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Hitted() && !isHitted)
+        if (health > 0)
         {
-            animator.SetTrigger("Hit");
-            this.health--;
-            isHitted = true;
+            if (UpHitted() && !isHitted)
+            {
+                Debug.Log("Hit");
+                rb2d.velocity = Vector2.zero;
+                rb2d.AddForce(new Vector2(0f, 26f), ForceMode2D.Impulse);
+                SceneController.instance.ShakeCamera(3, 0.125f);
+                animator.SetTrigger("Hit");
+                timer = 0.15f;
+                this.health--;
+                isHitted = true;
+            }
+            else if(DownHitted() && !isHitted)
+            {
+                SceneController.instance.ShakeCamera(3, 0.125f);
+                animator.SetTrigger("Hit");
+                timer = 0.15f;
+                this.health--;
+                isHitted = true;
+            }
+            if (timer > 0)
+            {
+                timer -= Time.deltaTime;
+                if (timer <= 0)
+                {
+                    isHitted = false;
+                }
+            }
         }
-        if (health <= 0)
+        else
         {
-            StartCoroutine(Break());
-            health = 10;
+            if(health == 0) StartCoroutine(Break());
+            health = -1;
         }
     }
 
-    private bool Hitted()
+    private bool UpHitted()
     {
-        return Physics2D.OverlapBox(transform.position + new Vector3(0,0.6f, 0), new Vector2(0.8f, 0.2f), 0.5f, layerMask);
+        return Physics2D.OverlapBox(transform.position + new Vector3(0, 0.6f, 0), new Vector2(0.8f, 0.2f), 0f, layerMask);
+        
+    }
+
+    private bool DownHitted()
+    {
+        return Physics2D.OverlapBox(transform.position + new Vector3(0, -0.6f, 0), new Vector2(0.8f, 0.2f), 0f, layerMask);
+
     }
     //private void OnCollisionEnter2D(Collision2D collision)
     //{
@@ -49,7 +85,6 @@ public class Box : MonoBehaviour
 
     IEnumerator Break()
     {
-        SceneController.instance.ShakeCamera(3, 0.125f);
         yield return new WaitForSeconds(0.15f);
         BoxCollider2D boxCollider = GetComponent<BoxCollider2D>();
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
