@@ -46,6 +46,8 @@ public class PlayerController : MonoBehaviour
     public int numberOfFruitsMax = 100;
     private int numberOfFruits = 0; 
     
+    //Variables related to testing
+    [SerializeField] private Vector2 test;
     // Start is called before the first frame update
     void Start()
     {
@@ -63,6 +65,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        test = rigidbody2d.position;
         isground = IsGrounded();
         iswall = IsWalled();
         horizontal = Input.GetAxisRaw("Horizontal");
