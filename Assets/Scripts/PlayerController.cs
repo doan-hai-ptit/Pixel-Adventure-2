@@ -45,9 +45,14 @@ public class PlayerController : MonoBehaviour
     //Variables related to changing scene
     public int numberOfFruitsMax = 100;
     private int numberOfFruits = 0; 
+    //Variables related to repawn
+    private Vector2 respawnPosition;
+    public Vector2 RespawnPosition
+    {
+        set { respawnPosition = value; }
+        get => respawnPosition;
+    }
     
-    //Variables related to testing
-    [SerializeField] private Vector2 test;
     // Start is called before the first frame update
     void Start()
     {
@@ -55,8 +60,8 @@ public class PlayerController : MonoBehaviour
         //moveAction.Enable();
         animator = GetComponent<Animator>();
         rigidbody2d = GetComponent<Rigidbody2D>();
-        isDead = false;
-        startPosition = transform.position;
+        isDead = false; 
+        RespawnPosition= transform.position;
         numberOfFruits = numberOfFruitsMax;
         //QualitySettings.vSyncCount = 0;
         //Application.targetFrameRate = 10;
@@ -65,7 +70,6 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        test = rigidbody2d.position;
         isground = IsGrounded();
         iswall = IsWalled();
         horizontal = Input.GetAxisRaw("Horizontal");
@@ -226,12 +230,16 @@ public class PlayerController : MonoBehaviour
     IEnumerator Respawn(float seconds)
     {
         yield return new WaitForSeconds(seconds);
-        SceneController.instance.ReloadScene();
-        //BoxCollider2D collider2D = GetComponent<BoxCollider2D>();
-        //animator.Play("Idle");
-        //isDead = false;
-        //collider2D.enabled = true;
-        //transform.position = startPosition;
+        //SceneController.instance.ReloadScene();
+        BoxCollider2D collider2D = GetComponent<BoxCollider2D>();
+        transform.position = RespawnPosition;
+        rigidbody2d.velocity = Vector2.zero;
+        animator.Play("Appear");
+        animator.SetBool("Appearing", true);
+        isDead = false;
+        collider2D.enabled = true;
+        yield return new WaitForSeconds(1);
+        animator.SetBool("Appearing", false);
     }
 
     public void CollectedFruit()

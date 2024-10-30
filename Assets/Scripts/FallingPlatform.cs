@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class FallingPlatform : MonoBehaviour
 {
@@ -15,11 +16,15 @@ public class FallingPlatform : MonoBehaviour
     [SerializeField] private GameObject airEffect;
     Animator animator;
     Rigidbody2D rb2d;
+    private float randomPhaseY;
+    private float randomPhaseX;
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
         rb2d = GetComponent<Rigidbody2D>();
+        randomPhaseY = Random.Range(0f, Mathf.PI * 2);
+        randomPhaseX = Random.Range(0f, Mathf.PI * 2);
         //rb2d = GetComponent<Rigidbody2D>();
     }
 
@@ -71,8 +76,8 @@ public class FallingPlatform : MonoBehaviour
 
     private void Swing()
     {
-        float velocityY = Mathf.Sin(Time.time * hoverFrequency) * hoverAmplitude;
-        float velocityX = Mathf.Cos(Time.time * hoverFrequency) * hoverAmplitude;
+        float velocityY = Mathf.Sin(Time.time * hoverFrequency + randomPhaseY) * hoverAmplitude;
+        float velocityX = Mathf.Cos(Time.time * hoverFrequency + randomPhaseX) * hoverAmplitude;
         rb2d.velocity = new Vector2(velocityX, velocityY);
     }
 
