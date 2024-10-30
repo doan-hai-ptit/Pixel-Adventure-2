@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     public Rigidbody2D rb;
     public float speedMove;
     public bool isDead = false;
+    public float radius;
     public virtual void Idle()
     {
         Debug.Log("Idle");
@@ -23,9 +24,9 @@ public class Enemy : MonoBehaviour
         StartCoroutine(Death());
     }
 
-    public bool IsPlayerInRange()
+    public bool IsPlayerInRange(float range)
     {
-        return Physics2D.OverlapCircle(transform.position, 0.2f, LayerMask.GetMask("Player"));
+        return Physics2D.OverlapCircle(transform.position, range, LayerMask.GetMask("Player"));
     }
 
     IEnumerator Death()
