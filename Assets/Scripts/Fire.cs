@@ -46,7 +46,14 @@ public class Fire : MonoBehaviour
     {
         yield return new WaitForSeconds(activationDelay);
         PlayerController playerController = player.GetComponent<PlayerController>();
-        if(isBurned()) playerController.Dead();
+        if (isBurned())
+        {
+            if (!playerController.isDead)
+            {
+                playerController.ChangeHealth(-1);
+                playerController.Dead();
+            }
+        }
         yield return new WaitForSeconds(activeTime);
         this.isHit = false;
     }

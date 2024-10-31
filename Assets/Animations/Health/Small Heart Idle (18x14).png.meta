@@ -1,19 +1,7 @@
 fileFormatVersion: 2
-guid: a766483fddea6b64f827838e089d1970
+guid: 73fa40dd087a5514896509a4a775166d
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: -4784554060977693878
-    second: Break (28x24)_0
-  - first:
-      213: 2985246200973115026
-    second: Break (28x24)_1
-  - first:
-      213: -8102069304995713464
-    second: Break (28x24)_2
-  - first:
-      213: 2874570451049708880
-    second: Break (28x24)_3
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -75,9 +63,9 @@ TextureImporter:
   compressionQualitySet: 0
   textureFormatSet: 0
   ignorePngGamma: 0
-  applyGammaDecoding: 1
+  applyGammaDecoding: 0
   swizzle: 50462976
-  cookieLightType: 1
+  cookieLightType: 0
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -97,20 +85,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -123,7 +98,20 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -136,7 +124,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -148,13 +136,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Break (28x24)_0
+      name: Small Heart Idle (18x14)_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 28
-        height: 24
+        width: 18
+        height: 14
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -162,20 +150,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f93f6ce866a5d854985cfe6c6d445866
-      internalID: -4784554060977693878
+      spriteID: c0ec989e9d5a45a42a992fac86331019
+      internalID: -783255889
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Break (28x24)_1
+      name: Small Heart Idle (18x14)_1
       rect:
         serializedVersion: 2
-        x: 28
+        x: 18
         y: 0
-        width: 28
-        height: 24
+        width: 18
+        height: 14
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -183,20 +171,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: db2ce1d13f4385e49aeca78c4c10bc40
-      internalID: 2985246200973115026
+      spriteID: cc34f33f7c69eed43877485bcbdd6977
+      internalID: -887165296
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Break (28x24)_2
+      name: Small Heart Idle (18x14)_2
       rect:
         serializedVersion: 2
-        x: 56
+        x: 36
         y: 0
-        width: 28
-        height: 24
+        width: 18
+        height: 14
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -204,20 +192,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0e4f7349851501448b00640e10a5a78f
-      internalID: -8102069304995713464
+      spriteID: 98c705f9aa1d8504483a79f824bbb4b9
+      internalID: -1315730263
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Break (28x24)_3
+      name: Small Heart Idle (18x14)_3
       rect:
         serializedVersion: 2
-        x: 84
+        x: 54
         y: 0
-        width: 28
-        height: 24
+        width: 18
+        height: 14
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -225,8 +213,92 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b39f0a11da25cff489d0e886d6c681f1
-      internalID: 2874570451049708880
+      spriteID: 245826b57d075c24c9ea9fbd5f1dc18a
+      internalID: 1052643524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Small Heart Idle (18x14)_4
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 0
+        width: 18
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba04c050087c4a84e84630dc21f619e9
+      internalID: -1523584101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Small Heart Idle (18x14)_5
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 0
+        width: 18
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3acc84779e62d2445a4164f12826ddb9
+      internalID: -1867235499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Small Heart Idle (18x14)_6
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 0
+        width: 18
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6d15ca41fa90db49a5eb720e17fc9c0
+      internalID: -438283011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Small Heart Idle (18x14)_7
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 0
+        width: 18
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14778b64b6dd4544ebcdd75290eb3afc
+      internalID: -484928615
       vertices: []
       indices: 
       edges: []
@@ -242,10 +314,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Break (28x24)_0: -4784554060977693878
-      Break (28x24)_1: 2985246200973115026
-      Break (28x24)_2: -8102069304995713464
-      Break (28x24)_3: 2874570451049708880
+      Small Heart Idle (18x14)_0: -783255889
+      Small Heart Idle (18x14)_1: -887165296
+      Small Heart Idle (18x14)_2: -1315730263
+      Small Heart Idle (18x14)_3: 1052643524
+      Small Heart Idle (18x14)_4: -1523584101
+      Small Heart Idle (18x14)_5: -1867235499
+      Small Heart Idle (18x14)_6: -438283011
+      Small Heart Idle (18x14)_7: -484928615
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -24,6 +24,15 @@ public class Enemy : MonoBehaviour
         StartCoroutine(Death());
     }
 
+    public virtual void Hitted()
+    {
+        PlayerController player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        if (!player.isDead)
+        {
+            player.ChangeHealth(-1);
+            player.Dead();
+        }
+    }
     public bool IsPlayerInRange(float range)
     {
         return Physics2D.OverlapCircle(transform.position, range, LayerMask.GetMask("Player"));
@@ -31,6 +40,9 @@ public class Enemy : MonoBehaviour
 
     IEnumerator Death()
     {
+        Rigidbody2D rbPlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
+        rbPlayer.velocity = Vector2.zero;
+        rbPlayer.AddForce(Vector2.up * 26f, ForceMode2D.Impulse);
         isDead = true;
         SceneController.instance.ShakeCamera(5, 0.125f);
         animator.SetTrigger("Hit");

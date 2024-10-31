@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class Box : MonoBehaviour
 {
-    [SerializeField] private int health = 1;
+    [SerializeField] public int health = 1;
     [SerializeField] GameObject[] debrises = new GameObject[4];
     [SerializeField] GameObject[] items = new GameObject[9];
     [SerializeField] LayerMask layerMask;
     [SerializeField] float timer = 0;
-    //[SerializeField] Vector2 froce;
+    [SerializeField] int amountItem = 0;
+    [SerializeField] GameObject headPart;
+    [SerializeField] GameObject bodyPart;
     Animator animator;
     private bool isHitted = false;
     private GameObject player;
@@ -28,25 +30,6 @@ public class Box : MonoBehaviour
     {
         if (health > 0)
         {
-            if (UpHitted() && !isHitted)
-            {
-                Debug.Log("Hit");
-                rb2d.velocity = Vector2.zero;
-                rb2d.AddForce(new Vector2(0f, 26f), ForceMode2D.Impulse);
-                SceneController.instance.ShakeCamera(3, 0.125f);
-                animator.SetTrigger("Hit");
-                timer = 0.15f;
-                this.health--;
-                isHitted = true;
-            }
-            else if(DownHitted() && !isHitted)
-            {
-                SceneController.instance.ShakeCamera(3, 0.125f);
-                animator.SetTrigger("Hit");
-                timer = 0.15f;
-                this.health--;
-                isHitted = true;
-            }
             if (timer > 0)
             {
                 timer -= Time.deltaTime;
@@ -63,33 +46,37 @@ public class Box : MonoBehaviour
         }
     }
 
-    private bool UpHitted()
+    public void UpHitted()
     {
-        return Physics2D.OverlapBox(transform.position + new Vector3(0, 0.6f, 0), new Vector2(0.8f, 0.2f), 0f, layerMask);
-        
+        rb2d.velocity = Vector2.zero;
+        rb2d.AddForce(new Vector2(0f, 26f), ForceMode2D.Impulse);
+        SceneController.instance.ShakeCamera(3, 0.125f);
+        animator.SetTrigger("Hit");
+        timer = 0.15f;
+        this.health--;
     }
 
-    private bool DownHitted()
+    public void DownHitted()
     {
-        return Physics2D.OverlapBox(transform.position + new Vector3(0, -0.6f, 0), new Vector2(0.8f, 0.2f), 0f, layerMask);
+        SceneController.instance.ShakeCamera(3, 0.125f);
+        animator.SetTrigger("Hit");
+        timer = 0.15f;
+        this.health--;
+        isHitted = true;
 
     }
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if (collision.gameObject.tag == "Player")
-    //    {
-     //       animator.SetTrigger("Hit");
-     //       this.health--;
-     //   }
-    //}
 
     IEnumerator Break()
     {
         yield return new WaitForSeconds(0.15f);
         BoxCollider2D boxCollider = GetComponent<BoxCollider2D>();
+        BoxCollider2D boxCollider1 = headPart. GetComponent<BoxCollider2D>();
+        BoxCollider2D boxCollider2 = bodyPart.GetComponent<BoxCollider2D>();
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.enabled = false;
         boxCollider.enabled = false;
+        boxCollider1.enabled = false;
+        boxCollider2.enabled = false;
         for (int i = 0; i < 4; i++)
         { 
             debrises[i].SetActive(true);
@@ -99,12 +86,11 @@ public class Box : MonoBehaviour
         Launch(debrises[1], new Vector2(Random.Range(1.0f, 3.0f), Random.Range(1.0f, 3.0f)));
         Launch(debrises[2], new Vector2(Random.Range(-3.0f, -1.0f), 0f));
         Launch(debrises[3], new Vector2(Random.Range(1.0f, 3.0f), 0f));
-        int item1 = Random.Range(0, 9);
-        int item2 = Random.Range(0, 9);
-        int item3 = Random.Range(0, 9);
-        DropItem(items[item1], new Vector2(Random.Range(-3.0f, 3.0f), 0f));
-        DropItem(items[item2], new Vector2(Random.Range(-3.0f, 3.0f), 0f));
-        DropItem(items[item3], new Vector2(Random.Range(-3.0f, 3.0f), 0f));
+        for (int i = 0; i < amountItem; i++)
+        {
+            int item = Random.Range(0, 9);
+            DropItem(items[item], new Vector2(Random.Range(-3.0f, 3.0f), 0f));
+        }
         //Launch(debrises[2], froce);
         yield return new WaitForSeconds(3.5f);
         Destroy(gameObject);

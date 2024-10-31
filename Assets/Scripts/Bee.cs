@@ -11,16 +11,13 @@ public class Bee : Enemy
     [SerializeField] private float hoverFrequency = 0.5f; 
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private float fireRate = 0.4f;
-    private Rigidbody2D rbPlayer;
     private float randomPhaseY;
     private float randomPhaseX;
-    private bool collided = false;
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
-        rbPlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
         randomPhaseY = Random.Range(0f, Mathf.PI * 2);
         randomPhaseX = Random.Range(0f, Mathf.PI * 2);
     }
@@ -28,18 +25,6 @@ public class Bee : Enemy
     // Update is called once per frame
     void Update()
     {
-        if (IsHitted() && !isDead)
-        {
-            rbPlayer.velocity = Vector2.zero;
-            rbPlayer.AddForce(Vector2.up * 26f, ForceMode2D.Impulse);
-            Hit();
-        }
-        else if(!collided && CollidedWithPlayer()){
-            PlayerController player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-            if(!player.isDead) player.Dead();
-            collided = true;
-            
-        }
         if (!isDead)
         {
             Idle();
@@ -51,17 +36,6 @@ public class Bee : Enemy
             Attack();
         }
     }
-
-    private bool IsHitted()
-    {
-        return Physics2D.OverlapBox(transform.position + new Vector3(0, 0.65f, 0), new Vector2(1.3f, 0.45f), 0.0f, LayerMask.GetMask("Player"));
-    }
-
-    private bool CollidedWithPlayer()
-    {
-        return Physics2D.OverlapBox(transform.position + new Vector3(0, -0.3f, 0), new Vector2(1.3f, 1.5f), 0.0f, LayerMask.GetMask("Player"));
-    }
-    
     public override void Idle()
     {
         float velocityY = Mathf.Sin(Time.time * hoverFrequency + randomPhaseY) * hoverAmplitude;

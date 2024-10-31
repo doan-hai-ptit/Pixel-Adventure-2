@@ -13,11 +13,9 @@ public class PlayerController : MonoBehaviour
     //public InputAction moveAction;
     public float moveSpeed = 400.0f;
     public float jumpSpeed = 26.0f;
-    public float doubleJumpSpeed = 50.0f;
     public float distance = 1f;
     public LayerMask groundLayer;
     public LayerMask wallLayer;
-    public LayerMask platformLayer;
     private bool doubleJump = false;
     private bool hasDoubleJump = false;
     private bool hasWallJump = false;
@@ -42,9 +40,11 @@ public class PlayerController : MonoBehaviour
     public bool isDead {set; get;}
     private Vector2 startPosition;
     
-    //Variables related to changing scene
-    public int numberOfFruitsMax = 100;
+    //Variables related to changing health
+    public Health health;
     private int numberOfFruits = 0; 
+    public int currentHealth = 3;
+    private int maxHealth = 3;
     //Variables related to repawn
     private Vector2 respawnPosition;
     public Vector2 RespawnPosition
@@ -62,7 +62,6 @@ public class PlayerController : MonoBehaviour
         rigidbody2d = GetComponent<Rigidbody2D>();
         isDead = false; 
         RespawnPosition= transform.position;
-        numberOfFruits = numberOfFruitsMax;
         //QualitySettings.vSyncCount = 0;
         //Application.targetFrameRate = 10;
     }
@@ -177,13 +176,11 @@ public class PlayerController : MonoBehaviour
     
     private bool IsGrounded()
     { 
-        //return Physics2D.OverlapBox(rigidbody2d.position + Vector2.down, new Vector2(0.9f, 0.1f), 0.0f, LayerMask.GetMask("Ground")) || Physics2D.OverlapBox(rigidbody2d.position + Vector2.down, new Vector2(1.0f, 0.1f), 0.0f, LayerMask.GetMask("Platform")) || Physics2D.OverlapBox(rigidbody2d.position + Vector2.down, new Vector2(1.0f, 0.1f), 0.0f, LayerMask.GetMask("DeadZone"));
         return Physics2D.OverlapBox(rigidbody2d.position + Vector2.down, new Vector2(0.9f, 0.1f), 0.0f, groundLayer);
     }
 
     private bool IsWalled()
     {
-        //return Physics2D.OverlapBox(rigidbody2d.position + new Vector2(0.6f, -0.22f), new Vector2(0.05f, distance), 0.0f, LayerMask.GetMask("Wall")) || Physics2D.OverlapBox(rigidbody2d.position + new Vector2(0.6f, -0.22f), new Vector2(0.05f, distance), 0.0f, LayerMask.GetMask("DeadZone"));
         return IsLeftWallSliding() || IsRightWallSliding();
     }
 
@@ -244,18 +241,19 @@ public class PlayerController : MonoBehaviour
 
     public void CollectedFruit()
     {
-        numberOfFruits--;
-        ChangeScene();
+        numberOfFruits++;
+        while (numberOfFruits >= 10)
+        {
+            ChangeHealth(1);
+            numberOfFruits -= 10;
+        }
     }
 
-    private void ChangeScene()
+    public void ChangeHealth(int amount)
     {
-        if (numberOfFruits == 0)
-        {
-            SceneController.instance.NextScene();
-        }
-
-        //numberOfFruits++;
+        currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
+        health.UpdateHearts();
+        Debug.Log(currentHealth);
     }
     
 }

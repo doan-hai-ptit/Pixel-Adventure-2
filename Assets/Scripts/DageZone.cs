@@ -10,7 +10,11 @@ public class DageZone : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             PlayerController player = other.GetComponent<PlayerController>();
-            if(!player.isDead) player.Dead();
+            if (!player.isDead)
+            {
+                player.ChangeHealth(-1);
+                player.Dead();
+            }
         }
     }
 
@@ -19,7 +23,11 @@ public class DageZone : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             PlayerController player = other.gameObject.GetComponent<PlayerController>();
-            if(!player.isDead) player.Dead();
+            if (!player.isDead)
+            {
+                player.ChangeHealth(-1);
+                player.Dead();
+            }
         }
     }
 }
