@@ -11,17 +11,11 @@ public class Health : MonoBehaviour
     PlayerController playerController;
     private GameObject[] hearts = new GameObject[3];
     // Start is called before the first frame update
+    public Vector2 originalSize;
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
         playerController = player.GetComponent<PlayerController>();
         UpdateHearts();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void UpdateHearts()
@@ -33,10 +27,8 @@ public class Health : MonoBehaviour
                 Destroy(heart);
             }
         }
-
         for (int i = 0; i < playerController.currentHealth; i++)
         {
-            Debug.Log(transform.position + positions[i]);
             hearts[i] = Instantiate(heartPrefab, transform.position + positions[i], Quaternion.identity, this.transform);
         }
     }

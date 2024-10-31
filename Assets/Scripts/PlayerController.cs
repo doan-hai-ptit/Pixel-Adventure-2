@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
     //Variables related to changing health
     public Health health;
     private int numberOfFruits = 0; 
-    public int currentHealth = 3;
+    public int currentHealth = 1;
     private int maxHealth = 3;
     //Variables related to repawn
     private Vector2 respawnPosition;
@@ -98,7 +98,7 @@ public class PlayerController : MonoBehaviour
            wallSlidingDirection = 1.0f;
         }
 
-        if ((IsGrounded() || IsWalled()) && rigidbody2d.velocity.y <= 0)
+        if ((IsGrounded() || IsWalled()) && rigidbody2d.velocity.y <= 1)
         {
             doubleJump = false;
             hasDoubleJump = false;
