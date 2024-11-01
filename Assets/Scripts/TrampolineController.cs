@@ -22,17 +22,21 @@ public class TrampolineController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        
-        Rigidbody2D rb = other.GetComponent<Rigidbody2D>();
-        rb.velocity = Vector2.zero;
-        rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
-        SceneController.instance.ShakeCamera(3, 0.125f);
-        //Debug.Log(rb.velocity.y);
-        animator.SetBool("Jump", true);
+        if (other.CompareTag("Player"))
+        {
+            Rigidbody2D rb = other.GetComponent<Rigidbody2D>();
+            rb.velocity = Vector2.zero;
+            rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+            SceneController.instance.ShakeCamera(3, 0.125f);
+            animator.SetBool("Jump", true);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        animator.SetBool("Jump", false);
+        if (other.CompareTag("Player"))
+        {
+            animator.SetBool("Jump", false);
+        }
     }
 }

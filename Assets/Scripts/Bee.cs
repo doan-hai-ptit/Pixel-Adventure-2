@@ -36,7 +36,8 @@ public class Bee : Enemy
             Attack();
         }
     }
-    public override void Idle()
+
+    protected override void Idle()
     {
         float velocityY = Mathf.Sin(Time.time * hoverFrequency + randomPhaseY) * hoverAmplitude;
         float velocityX = Mathf.Cos(Time.time * hoverFrequency + randomPhaseX) * hoverAmplitude;

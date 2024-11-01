@@ -11,7 +11,6 @@ public class Health : MonoBehaviour
     PlayerController playerController;
     private GameObject[] hearts = new GameObject[3];
     // Start is called before the first frame update
-    public Vector2 originalSize;
     void Start()
     {
         playerController = player.GetComponent<PlayerController>();

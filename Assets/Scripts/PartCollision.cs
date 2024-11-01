@@ -15,12 +15,12 @@ public class PartCollision : MonoBehaviour
             if (partName == "Head")
             {
                 Enemy enemyScript = enemy.gameObject.GetComponent<Enemy>();
-                enemyScript.Hit();
+                enemyScript.Hitted();
             }
             else if (partName == "Body")
             {
                 Enemy enemyScript = enemy.gameObject.GetComponent<Enemy>();
-                enemyScript.Hitted();
+                enemyScript.Hit();
             }
         }
         else if (other.CompareTag("Player"))
