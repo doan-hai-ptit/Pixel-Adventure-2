@@ -16,7 +16,7 @@ public class Snail : Enemy
     // Update is called once per frame
     void Update()
     {
-        if (isChangingDirection ||isDead)
+        if (isChangingDirection ||isDead)//bi roi lau luc chet
         {
             Idle();
         }
