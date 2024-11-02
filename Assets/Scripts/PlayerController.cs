@@ -221,7 +221,9 @@ public class PlayerController : MonoBehaviour
         rigidbody2d.AddForce(new Vector2(rigidbody2d.velocity.x * xVelocity, yVelocity - rigidbody2d.velocity.y), ForceMode2D.Impulse);
         BoxCollider2D collider2D = GetComponent<BoxCollider2D>();
         collider2D.enabled = false;
-        StartCoroutine(Respawn(2.0f));
+        // test nen de reload
+        SceneController.instance.ReloadScene();
+        //StartCoroutine(Respawn(2.0f));
     }
 
     IEnumerator Respawn(float seconds)

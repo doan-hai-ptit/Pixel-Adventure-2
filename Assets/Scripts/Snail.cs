@@ -6,6 +6,7 @@ public class Snail : Enemy
 {
     // Start is called before the first frame update
     [SerializeField] private GameObject wallCollison;
+    [SerializeField] private GameObject snailWithoutShell;
     void Start()
     {
         health = 3;
@@ -16,11 +17,11 @@ public class Snail : Enemy
     // Update is called once per frame
     void Update()
     {
-        if (isChangingDirection ||isDead)//bi roi lau luc chet
+        if (isChangingDirection)
         {
             Idle();
         }
-        else
+        else if(!isChangingDirection || !isDead)
         {
             Move();
         }
@@ -30,17 +31,17 @@ public class Snail : Enemy
 
     public override void Move()
     {
-        transform.localScale = new Vector3(direction * -1, 1, 1);
-        rb.velocity = new Vector2(speedMove * direction, rb.velocity.y);
+        if(isDead) rb.velocity = new Vector2(0, rb.velocity.y);
+        else
+        {
+            transform.localScale = new Vector3(direction * -1, 1, 1);
+            rb.velocity = new Vector2(speedMove * direction, rb.velocity.y);
+        }
     }
 
     protected override void Idle()
     {
         rb.velocity = Vector2.zero;
-    }
-    public override void Hit()
-    {
-        Debug.Log("Snail Hit");
     }
     
     protected override void ChangeForm()
@@ -50,12 +51,25 @@ public class Snail : Enemy
             isOtherForm = true;
             speedMove = 0;
             wallCollison.transform.position = transform.position + new Vector3(direction * -0.57f, 0, 0);
+            StartCoroutine(DelayForAnimation());
+            
         }
         else
         {
             animator.SetBool("isShell", true);
-            speedMove = 18;
+            speedMove = 12;
         }
         animator.SetTrigger("Hit");
+    }
+
+    IEnumerator DelayForAnimation()
+    {
+        yield return new WaitForSeconds(0.2f);
+        rb.velocity = Vector2.zero;
+        rb.AddForce(Vector2.up * 10f, ForceMode2D.Impulse);
+        yield return new WaitForSeconds(0.05f);
+        snailWithoutShell.SetActive(true);
+        yield return new WaitForSeconds(5f);
+        Destroy(snailWithoutShell);
     }
 }
