@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class CheckPoint : MonoBehaviour
 {
-    Animator animator;
+    [SerializeField] Animator animator;
     // Start is called before the first frame update
     void Start()
     {
-        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame

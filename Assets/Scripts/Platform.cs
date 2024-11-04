@@ -6,43 +6,70 @@ using UnityEngine;
 public class Platform : MonoBehaviour
 {
     // Start is called before the first frame update
-    private Rigidbody2D rb2d;
+    [SerializeField] private Rigidbody2D rb2d;
+    [SerializeField] private bool isPlayerOnPlatform = false;
+    [SerializeField] private Animator animator;
     public Vector2 velocity;
     public Vector2 startPosition;
     public Vector2 endPosition;
+    public bool horizontal  = false;
     private float speedMove = 4;
     private bool canMove = true;
-    private Animator animator;
+    private int direction = 0;
     void Start()
     {
-        rb2d = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (velocity.y > 0)
+        rb2d.velocity = velocity * direction;
+        if (!horizontal)
         {
-            if (transform.position.y < startPosition.y || transform.position.y > endPosition.y)
+            if (transform.position.y <= startPosition.y)
             {
-                //canMove = false;
-                //transform.position = new Vector3(transform.position.x, startPosition.y, transform.position.z);
-                rb2d.velocity = Vector2.zero;
-                animator.SetBool("On", false);
+                if (isPlayerOnPlatform)
+                {
+                    direction = 1;
+                    animator.SetBool("On", true);
+                }
+                else
+                {
+                    direction = 0;
+                    animator.SetBool("On", false);
+                }
+            }
+            else if (transform.position.y >= endPosition.y)
+            {
+                if (isPlayerOnPlatform)
+                {
+                    direction = 0;
+                    animator.SetBool("On", false);
+                }
+                else
+                {
+                    direction = -1;
+                    animator.SetBool("On", true);
+                }
             }
         }
+        Debug.Log(direction); 
+        
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionStay2D(Collision2D other)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
-            if (canMove)
+            if (!horizontal)
             {
-                //canMove = true
-                rb2d.velocity = velocity;
-                animator.SetBool("On", true);
+                Rigidbody2D rb = other.gameObject.GetComponent<Rigidbody2D>();
+                if (rb.position.y - rb2d.position.y >= 1.05f && Mathf.Abs(rb2d.position.x - rb.position.x) <= 1.5f && Mathf.Abs(rb.velocity.y - rb2d.velocity.y) <= 0.1f)
+                {
+                    direction = 1;
+                    isPlayerOnPlatform = true;
+                }
             }
         }
     }
@@ -51,11 +78,14 @@ public class Platform : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            if (canMove)
+            if (!horizontal)
             {
-                rb2d.velocity = velocity * -1;
-                Debug.Log(velocity * -1);
-                animator.SetBool("On", true);
+                Rigidbody2D rb = collision.gameObject.GetComponent<Rigidbody2D>();
+                if (Mathf.Abs(rb2d.position.y - rb.position.y) >= 1.2f || Mathf.Abs(rb2d.position.x - rb.position.x) >= 1.5f)
+                {
+                    direction = -1;
+                    isPlayerOnPlatform = false;
+                }
             }
         }
     }

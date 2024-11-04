@@ -149,6 +149,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25ee291114268904391b95643c903767, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb2d: {fileID: 1187659151001871751}
+  isPlayerOnPlatform: 0
+  animator: {fileID: 2829970395204305015}
+  velocity: {x: 0, y: 0}
+  startPosition: {x: 0, y: 0}
+  endPosition: {x: 0, y: 0}
+  horizontal: 0
 --- !u!61 &503305942690490182
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Fire : MonoBehaviour
 {
-    Animator animator;
+    [SerializeField] Animator animator;
     [SerializeField] LayerMask playerMask;
     [SerializeField] bool isHit = false;
     [SerializeField] private GameObject player;
@@ -14,9 +14,7 @@ public class Fire : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        animator = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player");
-        
     }
 
     // Update is called once per frame

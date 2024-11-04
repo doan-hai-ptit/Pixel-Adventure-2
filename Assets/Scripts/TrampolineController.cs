@@ -5,13 +5,12 @@ using UnityEngine;
 
 public class TrampolineController : MonoBehaviour
 {
-    Animator animator;
+    [SerializeField] Animator animator;
     public float jumpForce = 43.5f;
     public float jumpTime = 0.2f;
     // Start is called before the first frame update
     void Start()
     {
-        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame

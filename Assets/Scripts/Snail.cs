@@ -10,8 +10,6 @@ public class Snail : Enemy
     void Start()
     {
         health = 3;
-        animator = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame

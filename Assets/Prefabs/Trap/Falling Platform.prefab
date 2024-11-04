@@ -131,6 +131,8 @@ MonoBehaviour:
   hoverAmplitudeWhenFall: 2
   hoverFrequencyWhenFall: 16
   airEffect: {fileID: 5948916188697451402}
+  animator: {fileID: 3339997834512661587}
+  rb2d: {fileID: 6721331933185588662}
 --- !u!50 &6721331933185588662
 Rigidbody2D:
   serializedVersion: 4

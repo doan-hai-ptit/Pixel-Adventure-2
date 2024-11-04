@@ -16,8 +16,6 @@ public class Bee : Enemy
     // Start is called before the first frame update
     void Start()
     {
-        animator = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody2D>();
         randomPhaseY = Random.Range(0f, Mathf.PI * 2);
         randomPhaseX = Random.Range(0f, Mathf.PI * 2);
     }

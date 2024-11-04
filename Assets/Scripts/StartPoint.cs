@@ -5,11 +5,10 @@ using UnityEngine;
 
 public class StartPoint : MonoBehaviour
 {
-    Animator animator;
+    [SerializeField] Animator animator;
     // Start is called before the first frame update
     void Start()
     {
-        animator = GetComponent<Animator>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

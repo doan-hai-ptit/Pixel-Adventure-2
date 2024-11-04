@@ -331,8 +331,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96d9fd6732023254b8909ff65f8fffeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  rb: {fileID: 0}
+  animator: {fileID: 1998484603646741095}
+  rb: {fileID: 4242110740825368486}
   speedMove: 3
   isDead: 0
   radius: 8
@@ -342,7 +342,6 @@ MonoBehaviour:
   isOtherForm: 0
   wallCollison: {fileID: 7788039625926626131}
   snailWithoutShell: {fileID: 4700491700823226501}
-  delayTime: 0
 --- !u!61 &3387018243472779111
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -14,15 +14,13 @@ public class FallingPlatform : MonoBehaviour
     [SerializeField] private float hoverAmplitudeWhenFall = 2f;  // Biên độ dao động (mức độ lên xuống)
     [SerializeField] private float hoverFrequencyWhenFall = 8f;  
     [SerializeField] private GameObject airEffect;
-    Animator animator;
-    Rigidbody2D rb2d;
+    [SerializeField] Animator animator;
+    [SerializeField] Rigidbody2D rb2d;
     private float randomPhaseY;
     private float randomPhaseX;
     // Start is called before the first frame update
     void Start()
     {
-        animator = GetComponent<Animator>();
-        rb2d = GetComponent<Rigidbody2D>();
         randomPhaseY = Random.Range(0f, Mathf.PI * 2);
         randomPhaseX = Random.Range(0f, Mathf.PI * 2);
         //rb2d = GetComponent<Rigidbody2D>();

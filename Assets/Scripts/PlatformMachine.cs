@@ -13,7 +13,7 @@ public class PlatformMachine : MonoBehaviour
     [SerializeField] private GameObject chainPrefab;
     [SerializeField] private bool horizontal = false;
     [SerializeField] private float delta = 0.5f;
-    [SerializeField] private float speedMove = 4f;
+    [SerializeField] private float speedMove = 2f;
     private Platform platform;
     void Start()
     {
@@ -29,6 +29,7 @@ public class PlatformMachine : MonoBehaviour
         }
         platform.startPosition = startPosition;
         platform.endPosition = endPosition;
+        platform.horizontal = horizontal;
     }
 
     // Update is called once per frame

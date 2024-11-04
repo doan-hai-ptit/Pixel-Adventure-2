@@ -168,12 +168,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beddf8dd265684a4fbdc85e3bd820c2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 9129631073632497436}
   playerMask:
     serializedVersion: 2
     m_Bits: 1024
   isHit: 0
-  isOff: 0
-  isOn: 0
   player: {fileID: 0}
 --- !u!50 &555419399351301408
 Rigidbody2D:

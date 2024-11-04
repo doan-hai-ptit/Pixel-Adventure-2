@@ -8,12 +8,11 @@ public class Health : MonoBehaviour
     [SerializeField] GameObject heartPrefab;
     [SerializeField] GameObject player;
     [SerializeField] Vector3[] positions = new Vector3[3];
-    PlayerController playerController;
+    [SerializeField] PlayerController playerController;
     private GameObject[] hearts = new GameObject[3];
     // Start is called before the first frame update
     void Start()
     {
-        playerController = player.GetComponent<PlayerController>();
         UpdateHearts();
     }
 

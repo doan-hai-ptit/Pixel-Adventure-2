@@ -123,11 +123,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4efe90c12787de4e913b6f249931e2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  rb: {fileID: 0}
+  animator: {fileID: 8042454171045910777}
+  rb: {fileID: 5904034782709192222}
   speedMove: 0
   isDead: 0
   radius: 0
+  direction: 1
+  isChangingDirection: 0
+  health: 1
+  isOtherForm: 0
   hoverAmplitude: 5
   hoverFrequency: 0.5
   bulletPrefab: {fileID: 1901258840587636636, guid: a27a05f05dbe0364ebed2b23fc7e4611, type: 3}
@@ -296,6 +300,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   partName: Head
   enemy: {fileID: 1261022421405068146}
+  box: {fileID: 0}
 --- !u!1 &5621611970558225928
 GameObject:
   m_ObjectHideFlags: 0
@@ -388,3 +393,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   partName: Body
   enemy: {fileID: 1261022421405068146}
+  box: {fileID: 0}

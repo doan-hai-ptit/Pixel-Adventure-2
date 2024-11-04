@@ -77,7 +77,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 2cebb83e3d9b5b247be3eb722143beb7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -122,6 +122,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25ee291114268904391b95643c903767, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb2d: {fileID: 9029625586456488481}
+  isPlayerOnPlatform: 0
+  animator: {fileID: 2600544591430682729}
+  velocity: {x: 0, y: 0}
+  startPosition: {x: 0, y: 0}
+  endPosition: {x: 0, y: 0}
+  horizontal: 0
 --- !u!61 &5103615036587675175
 BoxCollider2D:
   m_ObjectHideFlags: 0

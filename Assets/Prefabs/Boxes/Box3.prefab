@@ -646,6 +646,7 @@ MonoBehaviour:
   amountItem: 7
   headPart: {fileID: 3896370112835217531}
   bodyPart: {fileID: 2790088122115103319}
+  animator: {fileID: 488371683190921098}
 --- !u!95 &488371683190921098
 Animator:
   serializedVersion: 5

@@ -120,6 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de18daab02f48904a8b7dc4f099259e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 5200822968267553229}
   jumpForce: 43
   jumpTime: 0.2
 --- !u!61 &4230435097707989252

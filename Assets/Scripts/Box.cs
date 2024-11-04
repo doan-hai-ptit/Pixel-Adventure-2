@@ -12,7 +12,7 @@ public class Box : MonoBehaviour
     [SerializeField] int amountItem = 0;
     [SerializeField] GameObject headPart;
     [SerializeField] GameObject bodyPart;
-    Animator animator;
+    [SerializeField] Animator animator;
     private bool isHitted = false;
     private GameObject player;
     private Rigidbody2D rb2d;
@@ -20,7 +20,6 @@ public class Box : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        animator = GetComponent<Animator>();
         rb2d = player.GetComponent<Rigidbody2D>();
         
     }
