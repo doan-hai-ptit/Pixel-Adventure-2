@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour
 {
     public Animator animator;
     public Rigidbody2D rb;
+    public Renderer renderer;
     public float speedMove;
     public bool isDead = false;
     public float radius;
@@ -69,13 +70,18 @@ public class Enemy : MonoBehaviour
         else
         {
             animator.SetTrigger("WallHit");
-            SceneController.instance.ShakeCamera(1.5f, 0.125f);
+            if(IsInCameraView()) SceneController.instance.ShakeCamera(1.5f, 0.125f);
             direction *= -1;
         }
     }
     protected bool IsPlayerInRange(float range)
     {
         return Physics2D.OverlapCircle(transform.position, range, LayerMask.GetMask("Player"));
+    }
+
+    protected bool IsInCameraView()
+    {
+        return renderer.isVisible;
     }
     
     IEnumerator Death()

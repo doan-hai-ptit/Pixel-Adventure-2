@@ -333,6 +333,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 1998484603646741095}
   rb: {fileID: 4242110740825368486}
+  renderer: {fileID: 3492394954389666616}
   speedMove: 3
   isDead: 0
   radius: 8

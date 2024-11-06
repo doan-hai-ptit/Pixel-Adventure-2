@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviour
     public bool iswall;
     public float xVelocity = -2;
     public float yVelocity = 20;
+    public Vector2 velocity;
     
     // Variables related to hitting
     public bool isDead {set; get;}
@@ -63,12 +64,13 @@ public class PlayerController : MonoBehaviour
         isDead = false; 
         RespawnPosition= transform.position;
         //QualitySettings.vSyncCount = 0;
-        //Application.targetFrameRate = 10;
+        //Application.targetFrameRate = 60;
     }
 
     // Update is called once per frame
     void Update()
     {
+        velocity = rigidbody2d.velocity;
         isground = IsGrounded();
         iswall = IsWalled();
         horizontal = Input.GetAxisRaw("Horizontal");

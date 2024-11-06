@@ -77,7 +77,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 19602dbd991e72f4c8df688afa341f3d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -152,6 +152,7 @@ MonoBehaviour:
   rb2d: {fileID: 1187659151001871751}
   isPlayerOnPlatform: 0
   animator: {fileID: 2829970395204305015}
+  speedMove: 2
   velocity: {x: 0, y: 0}
   startPosition: {x: 0, y: 0}
   endPosition: {x: 0, y: 0}
