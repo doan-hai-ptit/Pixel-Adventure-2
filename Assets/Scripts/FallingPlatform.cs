@@ -65,7 +65,8 @@ public class FallingPlatform : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             Rigidbody2D rb = other.gameObject.GetComponent<Rigidbody2D>();
-            if (Mathf.Abs(rb.velocity.y - rb2d.velocity.y) < 0.1)
+            //if (Mathf.Abs(rb.velocity.y - rb2d.velocity.y) < 0.1)
+            if(rb.position.y - rb2d.position.y >= 1.05f && Mathf.Abs(rb2d.position.x - rb.position.x) <= 1.5f && Mathf.Abs(rb.velocity.y - rb2d.velocity.y) <= 0.1f)
             {
                 isFalling = true;
             }

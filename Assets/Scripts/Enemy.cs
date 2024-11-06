@@ -10,6 +10,8 @@ public class Enemy : MonoBehaviour
     public float speedMove;
     public bool isDead = false;
     public float radius;
+    public float width;
+    public float height;
     public int direction = 1;
     public bool isChangingDirection = false;
     public int health = 1;
@@ -79,6 +81,11 @@ public class Enemy : MonoBehaviour
         return Physics2D.OverlapCircle(transform.position, range, LayerMask.GetMask("Player"));
     }
 
+    protected bool IsPlayerInRange(float width, float height)
+    {
+        return Physics2D.OverlapBox(transform.position + new Vector3(width/2 * direction, 0, 0), new Vector2(width, height), 0,LayerMask.GetMask("Player"));
+    }
+    
     protected bool IsInCameraView()
     {
         return renderer.isVisible;

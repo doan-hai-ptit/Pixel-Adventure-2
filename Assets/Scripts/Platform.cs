@@ -15,7 +15,6 @@ public class Platform : MonoBehaviour
     public Vector2 startPosition;
     public Vector2 endPosition;
     public bool horizontal  = false;
-    private bool canMove = true;
     private Vector3 previousPosition;
     private int direction = 0;
     void Start()

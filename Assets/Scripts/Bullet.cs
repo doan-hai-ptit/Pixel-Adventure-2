@@ -24,7 +24,7 @@ public class Bullet : DageZone
                 Destroy(this.gameObject);
             }
         }
-        if (OnGround() && !isBroken)
+        if ((OnGround() || OnWall()) && !isBroken)
         {
             //Destroy(this.gameObject);
             StartCoroutine(Break());
@@ -37,7 +37,11 @@ public class Bullet : DageZone
             //return Physics2D.OverlapBox(rigidbody2d.position + Vector2.down, new Vector2(0.9f, 0.1f), 0.0f, LayerMask.GetMask("Ground")) || Physics2D.OverlapBox(rigidbody2d.position + Vector2.down, new Vector2(1.0f, 0.1f), 0.0f, LayerMask.GetMask("Platform")) || Physics2D.OverlapBox(rigidbody2d.position + Vector2.down, new Vector2(1.0f, 0.1f), 0.0f, LayerMask.GetMask("DeadZone"));
             return Physics2D.OverlapBox(transform.position + new Vector3(0, -0.35f, 0), new Vector2(0.2f, 0.1f), 0.0f, LayerMask.GetMask("Ground"));
     }
-    
+
+    bool OnWall()
+    {
+            return Physics2D.OverlapBox(transform.position + new Vector3(0.25f, 0, 0), new Vector2(0.1f, 0.2f), 0.0f, LayerMask.GetMask("Wall")) || Physics2D.OverlapBox(transform.position + new Vector3(-0.25f, 0, 0), new Vector2(0.1f, 0.2f), 0.0f, LayerMask.GetMask("Wall"));
+    }
     private void Disappear(GameObject debris)
     {
         float time = Random.Range(1.0f, 1.5f);
