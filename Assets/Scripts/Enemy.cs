@@ -6,7 +6,7 @@ public class Enemy : MonoBehaviour
 {
     public Animator animator;
     public Rigidbody2D rb;
-    public Renderer renderer;
+    public new Renderer renderer;
     public float speedMove;
     public bool isDead = false;
     public float radius;

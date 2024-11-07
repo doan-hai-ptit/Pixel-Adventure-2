@@ -34,7 +34,7 @@ public class Box : MonoBehaviour
                 timer -= Time.deltaTime;
                 if (timer <= 0)
                 {
-                    isHitted = false;
+                    this.isHitted = false;
                 }
             }
         }
