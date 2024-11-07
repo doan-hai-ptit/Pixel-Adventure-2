@@ -87,7 +87,7 @@ public class Box : MonoBehaviour
         Launch(debrises[3], new Vector2(Random.Range(1.0f, 3.0f), 0f));
         for (int i = 0; i < amountItem; i++)
         {
-            int item = Random.Range(-1, 19);
+            int item = Random.Range(-1, 17);
             DropItem(items[item/2], new Vector2(Random.Range(-3.0f, 3.0f), 0f));
         }
         //Launch(debrises[2], froce);

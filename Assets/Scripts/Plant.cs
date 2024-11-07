@@ -25,7 +25,7 @@ public class Plant : Enemy
             
         }
         
-        if (IsPlayerInRange(width, height))
+        if (IsPlayerInRangeOneSide(width, height))
         {
             Attack();
         }

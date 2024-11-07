@@ -87,9 +87,13 @@ public class Enemy : MonoBehaviour
         return Physics2D.OverlapCircle(transform.position, range, LayerMask.GetMask("Player"));
     }
 
-    protected bool IsPlayerInRange(float width, float height)
+    protected bool IsPlayerInRangeOneSide (float width, float height)
     {
         return Physics2D.OverlapBox(transform.position + new Vector3(width/2 * direction, 0, 0), new Vector2(width, height), 0,LayerMask.GetMask("Player"));
+    }
+    protected bool IsPlayerInRangeTwoSide (float width, float height)
+    {
+        return Physics2D.OverlapBox(transform.position, new Vector2(width, height), 0,LayerMask.GetMask("Player"));
     }
     
     protected bool IsInCameraView()
