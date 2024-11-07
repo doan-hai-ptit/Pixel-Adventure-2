@@ -9,7 +9,6 @@ public class Plant : Enemy
 {
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private float fireRate = 0.4f;
-    [SerializeField] private int damage = 100;
     [SerializeField] private Vector2 force = new Vector2(15, 0);
     // Start is called before the first frame update
     void Start()

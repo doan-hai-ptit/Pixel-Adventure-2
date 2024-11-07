@@ -33,17 +33,20 @@ public class Enemy : MonoBehaviour
 
     public virtual void Hitted()
     {
-        Rigidbody2D rbPlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
-        rbPlayer.velocity = Vector2.zero;
-        rbPlayer.AddForce(Vector2.up * 26f, ForceMode2D.Impulse);
-        health--;
-        if (health <= 0)
+        if (!isDead)
         {
-            StartCoroutine(Death());
-        }
-        else
-        {
-            ChangeForm();
+            Rigidbody2D rbPlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
+            rbPlayer.velocity = Vector2.zero;
+            rbPlayer.AddForce(Vector2.up * 26f, ForceMode2D.Impulse);
+            health--;
+            if (health <= 0)
+            {
+                StartCoroutine(Death());
+            }
+            else
+            {
+                ChangeForm();
+            }
         }
     }
     protected virtual void ChangeForm()
@@ -52,11 +55,14 @@ public class Enemy : MonoBehaviour
     }
     public virtual void Hit()
     {
-        PlayerController player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        if (!player.isDead)
+        if (!isDead)
         {
-            player.ChangeHealth(-1);
-            player.Dead();
+            PlayerController player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+            if (!player.isDead)
+            {
+                player.ChangeHealth(-1);
+                player.Dead();
+            }
         }
     }
 

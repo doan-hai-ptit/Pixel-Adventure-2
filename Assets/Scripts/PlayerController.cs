@@ -224,8 +224,8 @@ public class PlayerController : MonoBehaviour
         BoxCollider2D collider2D = GetComponent<BoxCollider2D>();
         collider2D.enabled = false;
         // test nen de reload
-        SceneController.instance.ReloadScene();
-        //StartCoroutine(Respawn(2.0f));
+        //SceneController.instance.ReloadScene();
+        StartCoroutine(Respawn(2.0f));
     }
 
     IEnumerator Respawn(float seconds)
@@ -257,7 +257,7 @@ public class PlayerController : MonoBehaviour
     {
         currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
         health.UpdateHearts();
-        Debug.Log(currentHealth);
+//        Debug.Log(currentHealth);
     }
     
 }
