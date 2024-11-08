@@ -11,7 +11,7 @@ public class RockHeadController : MonoBehaviour
     [SerializeField] private GameObject rockHeadPrefab;
     [SerializeField] private float moveSpeed;
     private GameObject rockHead;
-    private Rigidbody2D rigidbody2D;
+    private new Rigidbody2D rigidbody2D;
 
     // Start is called before the first frame update
     void Start()

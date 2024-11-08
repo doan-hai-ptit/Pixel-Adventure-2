@@ -7,11 +7,11 @@ using Cinemachine;
 public class SceneController : MonoBehaviour
 {
     public static SceneController instance;
-    private CinemachineVirtualCamera vcam;
-
+    private CinemachineVirtualCamera[] vcam;
+    private CinemachineVirtualCamera currentVcam;
+    private int currentVcamIndex = 0;
     private float shakeTimer;
     [SerializeField] Animator animator;
-
     private void Awake()
     {
         if (instance == null)
@@ -33,7 +33,7 @@ public class SceneController : MonoBehaviour
             shakeTimer -= Time.deltaTime;
             if (shakeTimer <= 0)
             {
-                CinemachineBasicMultiChannelPerlin perlin = vcam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+                CinemachineBasicMultiChannelPerlin perlin = currentVcam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
                 perlin.m_AmplitudeGain = 0f;
             }
         }
@@ -45,8 +45,18 @@ public class SceneController : MonoBehaviour
     }
     void OnsceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        vcam = FindObjectOfType<CinemachineVirtualCamera>();
-    }    
+        vcam = FindObjectsOfType<CinemachineVirtualCamera>();
+        currentVcam = vcam[currentVcamIndex];
+        
+    }
+
+    public void ChangeVCam(int index)
+    {
+        currentVcam.m_Priority = 0;
+        int i = Mathf.Clamp(index + currentVcamIndex, 0, vcam.Length);
+        currentVcam = vcam[i];
+        currentVcam.m_Priority = 10;
+    }
     
     public void NextScene()
     {
@@ -72,7 +82,7 @@ public class SceneController : MonoBehaviour
 
     public void ShakeCamera(float intensity, float time)
     {
-        CinemachineBasicMultiChannelPerlin perlin = vcam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        CinemachineBasicMultiChannelPerlin perlin = currentVcam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         perlin.m_AmplitudeGain = intensity;
         shakeTimer = time;
     }

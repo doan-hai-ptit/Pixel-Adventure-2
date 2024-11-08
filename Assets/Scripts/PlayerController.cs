@@ -53,7 +53,9 @@ public class PlayerController : MonoBehaviour
         set { respawnPosition = value; }
         get => respawnPosition;
     }
-    
+    //Variables related to change VCam
+    [SerializeField] private float limitedHeight;
+    //14.70965
     // Start is called before the first frame update
     void Start()
     {
@@ -131,7 +133,12 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-        
+
+        if (!isDead)
+        {
+            if (rigidbody2d.position.y > limitedHeight) SceneController.instance.ChangeVCam(1);
+            else SceneController.instance.ChangeVCam(-1);
+        }
         
         //Set animations
         //animator.SetFloat("Direction", moveDirection);

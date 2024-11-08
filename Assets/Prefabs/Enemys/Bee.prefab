@@ -125,15 +125,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 8042454171045910777}
   rb: {fileID: 5904034782709192222}
+  renderer: {fileID: 0}
   speedMove: 0
   isDead: 0
-  radius: 0
+  radius: 10
+  width: 0
+  height: 0
   direction: 1
   isChangingDirection: 0
   health: 1
   isOtherForm: 0
-  hoverAmplitude: 5
-  hoverFrequency: 0.5
+  hoverAmplitude: 2
+  hoverFrequency: 1
   bulletPrefab: {fileID: 1901258840587636636, guid: a27a05f05dbe0364ebed2b23fc7e4611, type: 3}
   fireRate: 0.4
 --- !u!61 &1880081923234675751

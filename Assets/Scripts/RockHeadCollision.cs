@@ -7,9 +7,9 @@ public class RockHeadCollision : MonoBehaviour
 {
     [SerializeField] private string animationName;
     [SerializeField] private Animator animator;
-    [SerializeField] private Rigidbody2D playerBody;
+    [SerializeField] private PlayerController player;
+    [SerializeField] private bool isCollidingWithPlayer = false;
     // Start is called before the first frame update
-    private bool isColliding;
     void Start()
     {
         
@@ -23,10 +23,19 @@ public class RockHeadCollision : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.CompareTag("Player")) StartCoroutine(Animation());
+        if (!other.CompareTag("Player"))
+        {
+            if (isCollidingWithPlayer)
+            {
+                player.ChangeHealth(-1);
+                player.Dead();
+                isCollidingWithPlayer = false;
+            }
+            StartCoroutine(Animation());
+        }
         else
         {
-            if(playerBody == null) playerBody = other.GetComponent<Rigidbody2D>();
+            if(player == null) player = other.GetComponent<PlayerController>();
         }
     }
 
@@ -34,19 +43,20 @@ public class RockHeadCollision : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (playerBody.velocity.magnitude < 0.1f)
-            {
-                PlayerController playerController = other.GetComponent<PlayerController>();
-                playerController.ChangeHealth(-1);
-                playerController.Dead();
-            }
-        };
+            isCollidingWithPlayer = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isCollidingWithPlayer = false;
+        }
     }
     IEnumerator Animation()
     {
-        isColliding = true;
         animator.SetTrigger(animationName);
         yield return new WaitForSeconds(0.2f);
-        isColliding = false;
     }
 }
