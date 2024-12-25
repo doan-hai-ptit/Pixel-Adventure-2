@@ -18,7 +18,7 @@ public class StartPoint : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player") && started)
         {
-            SceneController.instance.ShakeCamera(3, 0.125f);
+            GameController.instance.ShakeCamera(3, 0.125f);
             animator.SetTrigger("Move");
             started = false;
             particles.Play();

@@ -10,6 +10,10 @@ public class RockHeadController : MonoBehaviour
     [SerializeField] private Vector2[] movePoints;
     [SerializeField] private GameObject rockHeadPrefab;
     [SerializeField] private float moveSpeed;
+    [SerializeField] private RockHeadCollision topRockHeadCollision;
+    [SerializeField] private RockHeadCollision bottomRockHeadCollision;
+    [SerializeField] private RockHeadCollision rightRockHeadCollision;
+    [SerializeField] private RockHeadCollision leftRockHeadCollision;
     private GameObject rockHead;
     private new Rigidbody2D rigidbody2D;
 
@@ -18,12 +22,12 @@ public class RockHeadController : MonoBehaviour
     {
         CreateSaw();
         Move();
+        SetUp();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
     }
     
 
@@ -34,6 +38,27 @@ public class RockHeadController : MonoBehaviour
         rigidbody2D = rockHead.GetComponent<Rigidbody2D>();
     }
 
+    void SetUp()
+    {
+        topRockHeadCollision = rockHead.transform.GetChild(0).GetComponent<RockHeadCollision>();
+        bottomRockHeadCollision = rockHead.transform.GetChild(1).GetComponent<RockHeadCollision>();
+        rightRockHeadCollision = rockHead.transform.GetChild(2).GetComponent<RockHeadCollision>();
+        leftRockHeadCollision = rockHead.transform.GetChild(3).GetComponent<RockHeadCollision>();
+        if (movePoints.Length >= 4)
+        {
+            topRockHeadCollision.SetNextPart(rightRockHeadCollision);
+            leftRockHeadCollision.SetNextPart(topRockHeadCollision);
+            bottomRockHeadCollision.SetNextPart(leftRockHeadCollision);
+            rightRockHeadCollision.SetNextPart(bottomRockHeadCollision);
+        }
+        else if (movePoints.Length >= 2)
+        {
+            topRockHeadCollision.SetNextPart(rightRockHeadCollision);
+            leftRockHeadCollision.SetNextPart(rightRockHeadCollision);
+            bottomRockHeadCollision.SetNextPart(leftRockHeadCollision);
+            rightRockHeadCollision.SetNextPart(leftRockHeadCollision);
+        }
+    }
     void Move()
     {
         Sequence s = DOTween.Sequence();

@@ -26,7 +26,7 @@ public class TrampolineController : MonoBehaviour
             Rigidbody2D rb = other.GetComponent<Rigidbody2D>();
             rb.velocity = Vector2.zero;
             rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
-            SceneController.instance.ShakeCamera(3, 0.125f);
+            GameController.instance.ShakeCamera(3, 0.125f);
             animator.SetBool("Jump", true);
         }
     }

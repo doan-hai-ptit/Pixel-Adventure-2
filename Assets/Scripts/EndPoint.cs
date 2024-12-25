@@ -21,7 +21,7 @@ public class EndPoint : MonoBehaviour
     {
         if (other.CompareTag("Player") && !pressed)
         {
-            SceneController.instance.ShakeCamera(3, 0.125f);
+            GameController.instance.ShakeCamera(3, 0.125f);
             rb = other.GetComponent<Rigidbody2D>();
             animatorPlayer = other.GetComponent<Animator>();
             rend = other.GetComponent<Renderer>();

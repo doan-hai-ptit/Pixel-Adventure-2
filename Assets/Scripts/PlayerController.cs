@@ -54,8 +54,8 @@ public class PlayerController : MonoBehaviour
         get => respawnPosition;
     }
     //Variables related to change VCam
-    [SerializeField] private float limitedHeight;
-    //14.70965
+    public int cameraIndex;
+          //14.7itedH0965
     // Start is called before the first frame update
     void Start()
     {
@@ -134,11 +134,11 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (!isDead)
-        {
-            if (rigidbody2d.position.y > limitedHeight) SceneController.instance.ChangeVCam(1);
-            else SceneController.instance.ChangeVCam(-1);
-        }
+        // (!isDead)
+        //{
+         //   if (rigidbody2d.position.y > limitedHeight) GameController.instance.ChangeVCam(1);
+         //   else GameController.instance.ChangeVCam(-1);
+        //}
         
         //Set animations
         //animator.SetFloat("Direction", moveDirection);
@@ -225,7 +225,7 @@ public class PlayerController : MonoBehaviour
     public void Dead()
     {
         isDead = true;
-        SceneController.instance.ShakeCamera(5, 0.125f);
+        GameController.instance.ShakeCamera(5, 0.125f);
         animator.SetTrigger("Hit");
         rigidbody2d.AddForce(new Vector2(rigidbody2d.velocity.x * xVelocity, yVelocity - rigidbody2d.velocity.y), ForceMode2D.Impulse);
         BoxCollider2D collider2D = GetComponent<BoxCollider2D>();
@@ -237,7 +237,9 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator Respawn(float seconds)
     {
+        GameController.instance.ChangeVCam(cameraIndex);
         yield return new WaitForSeconds(seconds);
+        //yield return new WaitForSeconds(1.0f);
         //SceneController.instance.ReloadScene();
         BoxCollider2D collider2D = GetComponent<BoxCollider2D>();
         transform.position = RespawnPosition;

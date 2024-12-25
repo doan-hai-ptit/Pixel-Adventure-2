@@ -7,6 +7,7 @@ public class CheckPoint : MonoBehaviour
     [SerializeField] Animator animator;
     [SerializeField] ParticleSystem particles;
     private bool isChecked = false;
+    public int cameraIndex;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,9 +26,10 @@ public class CheckPoint : MonoBehaviour
             PlayerController player = collision.GetComponent<PlayerController>();
             player.RespawnPosition = transform.position;
             animator.SetBool("Checked", true);
-            SceneController.instance.ShakeCamera(3, 0.125f);
+            GameController.instance.ShakeCamera(3, 0.125f);
             particles.Play();
             isChecked = true;
+            player.cameraIndex = cameraIndex;
         }
     }
 }

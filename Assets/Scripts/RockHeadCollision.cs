@@ -9,6 +9,9 @@ public class RockHeadCollision : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private PlayerController player;
     [SerializeField] private bool isCollidingWithPlayer = false;
+    [SerializeField] private RockHeadCollision nextPart;
+    [SerializeField] private Renderer rockHead;
+    private bool isActive = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +26,7 @@ public class RockHeadCollision : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.CompareTag("Player"))
+        if (isActive && !other.CompareTag("Player"))
         {
             if (isCollidingWithPlayer)
             {
@@ -31,9 +34,13 @@ public class RockHeadCollision : MonoBehaviour
                 player.Dead();
                 isCollidingWithPlayer = false;
             }
+            //Debug.Log(rockHead.isVisible);
+            if(rockHead.isVisible) GameController.instance.ShakeCamera(1.5f, 0.125f);
+            isActive = false;
+            nextPart.SetActive(true);
             StartCoroutine(Animation());
         }
-        else
+        else if (isActive)
         {
             if(player == null) player = other.GetComponent<PlayerController>();
         }
@@ -41,7 +48,7 @@ public class RockHeadCollision : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (isActive && other.CompareTag("Player"))
         {
             isCollidingWithPlayer = true;
         }
@@ -49,7 +56,7 @@ public class RockHeadCollision : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (isActive && other.CompareTag("Player"))
         {
             isCollidingWithPlayer = false;
         }
@@ -58,5 +65,15 @@ public class RockHeadCollision : MonoBehaviour
     {
         animator.SetTrigger(animationName);
         yield return new WaitForSeconds(0.2f);
+    }
+
+    public void SetNextPart(RockHeadCollision nextPart)
+    {
+        this.nextPart = nextPart;
+    }
+
+    public void SetActive(bool active)
+    {
+        this.isActive = active;
     }
 }

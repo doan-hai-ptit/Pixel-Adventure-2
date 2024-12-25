@@ -78,7 +78,7 @@ public class Enemy : MonoBehaviour
         else
         {
             animator.SetTrigger("WallHit");
-            if(IsInCameraView()) SceneController.instance.ShakeCamera(1.5f, 0.125f);
+            if(IsInCameraView()) GameController.instance.ShakeCamera(1.5f, 0.125f);
             direction *= -1;
         }
     }
@@ -104,7 +104,7 @@ public class Enemy : MonoBehaviour
     IEnumerator Death()
     {
         isDead = true;
-        SceneController.instance.ShakeCamera(5, 0.125f);
+        GameController.instance.ShakeCamera(5, 0.125f);
         animator.SetTrigger("Dead");
         rb.velocity = Vector2.zero;
         BoxCollider2D box = GetComponent<BoxCollider2D>();

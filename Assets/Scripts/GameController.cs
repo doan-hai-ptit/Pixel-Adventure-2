@@ -4,12 +4,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Cinemachine;
 
-public class SceneController : MonoBehaviour
+public class GameController : MonoBehaviour
 {
-    public static SceneController instance;
+    public static GameController instance;
     private CinemachineVirtualCamera[] vcam;
     private CinemachineVirtualCamera currentVcam;
-    private int currentVcamIndex = 0;
+    public int currentVcamIndex = 0;
     private float shakeTimer;
     [SerializeField] Animator animator;
     private void Awake()
@@ -39,6 +39,10 @@ public class SceneController : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        Debug.Log(currentVcam.name);
+    }
     void OnDestroy()
     {
         SceneManager.sceneLoaded -= OnsceneLoaded;
@@ -55,9 +59,9 @@ public class SceneController : MonoBehaviour
         currentVcam.m_Priority = 0;
         int i = Mathf.Clamp(index + currentVcamIndex, 0, vcam.Length);
         currentVcam = vcam[i];
+        Debug.Log(currentVcam.name);
         currentVcam.m_Priority = 10;
     }
-    
     public void NextScene()
     {
         StartCoroutine(LoadLevel());
@@ -86,6 +90,4 @@ public class SceneController : MonoBehaviour
         perlin.m_AmplitudeGain = intensity;
         shakeTimer = time;
     }
-    
-    
 }

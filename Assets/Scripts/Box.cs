@@ -49,7 +49,7 @@ public class Box : MonoBehaviour
     {
         rb2d.velocity = Vector2.zero;
         rb2d.AddForce(new Vector2(0f, 26f), ForceMode2D.Impulse);
-        SceneController.instance.ShakeCamera(3, 0.125f);
+        GameController.instance.ShakeCamera(3, 0.125f);
         animator.SetTrigger("Hit");
         timer = 0.15f;
         this.health--;
@@ -57,7 +57,7 @@ public class Box : MonoBehaviour
 
     public void DownHitted()
     {
-        SceneController.instance.ShakeCamera(3, 0.125f);
+        GameController.instance.ShakeCamera(3, 0.125f);
         animator.SetTrigger("Hit");
         timer = 0.15f;
         this.health--;

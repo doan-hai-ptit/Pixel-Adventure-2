@@ -54,7 +54,6 @@ public class Plant : Enemy
         GameObject bullet =  Instantiate(bulletPrefab, transform.position + new Vector3(0.8f * direction, 0.3f, 0), Quaternion.identity) as GameObject;
         Rigidbody2D rigidbody2D = bullet.GetComponent<Rigidbody2D>();
         rigidbody2D.velocity = force * direction;
-        Debug.Log(force);
         fireRate = 0.4f;
     }
     

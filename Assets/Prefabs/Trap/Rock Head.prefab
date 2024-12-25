@@ -92,6 +92,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animationName: Right
   animator: {fileID: 4876003733483548868}
+  player: {fileID: 0}
+  isCollidingWithPlayer: 0
+  nextPart: {fileID: 0}
+  rockHead: {fileID: 9108156722273882812}
 --- !u!1 &2542660879197705747
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,6 +188,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animationName: Left
   animator: {fileID: 4876003733483548868}
+  player: {fileID: 0}
+  isCollidingWithPlayer: 0
+  nextPart: {fileID: 0}
+  rockHead: {fileID: 9108156722273882812}
 --- !u!1 &3647436383932761116
 GameObject:
   m_ObjectHideFlags: 0
@@ -217,10 +225,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8954938991754759011}
-  - {fileID: 7615865044359206348}
   - {fileID: 2003076004466922059}
   - {fileID: 5541844373292801653}
+  - {fileID: 8954938991754759011}
+  - {fileID: 7615865044359206348}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &9108156722273882812
@@ -460,6 +468,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animationName: Bottom
   animator: {fileID: 4876003733483548868}
+  player: {fileID: 0}
+  isCollidingWithPlayer: 0
+  nextPart: {fileID: 0}
+  rockHead: {fileID: 9108156722273882812}
 --- !u!1 &9028299909274812453
 GameObject:
   m_ObjectHideFlags: 0
@@ -552,3 +564,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animationName: Top
   animator: {fileID: 4876003733483548868}
+  player: {fileID: 0}
+  isCollidingWithPlayer: 0
+  nextPart: {fileID: 0}
+  rockHead: {fileID: 9108156722273882812}
