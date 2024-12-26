@@ -3,6 +3,8 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Cinemachine;
+using TMPro;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
@@ -12,18 +14,24 @@ public class GameController : MonoBehaviour
     public int currentVcamIndex = 0;
     private float shakeTimer;
     [SerializeField] Animator animator;
-    private void Awake()
+    // Variables related to collect enemys
+    [SerializeField] private int numberOfEnemyTypes = 4;
+    [SerializeField] private string[] enemysList;
+    [SerializeField] private int[] enemysAmount;
+    [SerializeField] private int[] enemysDestroyed;
+    [SerializeField] private Sprite bee;
+    [SerializeField] private Sprite bat;
+    [SerializeField] private Sprite plant;
+    [SerializeField] private Sprite snail;
+    [SerializeField] private Sprite chicken;
+    [SerializeField] private Image[] enemysImage;
+    [SerializeField] private TMP_Text[] number;
+private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-            SceneManager.sceneLoaded += OnsceneLoaded;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        instance = this;
+        //DontDestroyOnLoad(gameObject);
+        SceneManager.sceneLoaded += OnsceneLoaded;
+        SetUpEnemysList();
     }
 
     private void Update()
@@ -41,7 +49,7 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
-        Debug.Log(currentVcam.name);
+        
     }
     void OnDestroy()
     {
@@ -89,5 +97,94 @@ public class GameController : MonoBehaviour
         CinemachineBasicMultiChannelPerlin perlin = currentVcam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         perlin.m_AmplitudeGain = intensity;
         shakeTimer = time;
+    }
+
+    private void SetUpEnemysList()
+    {
+        for (int i = 0; i < numberOfEnemyTypes; i++)
+        {
+            if(enemysList[i] == "Bee") enemysImage[i].sprite = bee;
+            else if (enemysList[i] == "Bat") enemysImage[i].sprite = bat;
+            else if (enemysList[i] == "Plant") enemysImage[i].sprite = plant;
+            else if (enemysList[i] == "Snail") enemysImage[i].sprite = snail;
+            else if (enemysList[i] == "Chicken") enemysImage[i].sprite = chicken;
+        }
+
+        for (int i = 0; i < numberOfEnemyTypes; i++)
+        {
+            number[i].text = enemysDestroyed[i] + "/" + enemysAmount[i];
+        }
+    }
+
+    public void UpdateEnemysList(string enemyName)
+    {
+        for (int i = 0; i < numberOfEnemyTypes; i++)
+        {
+            if (enemyName == "Bee")
+            {
+                for (int j = 0; j < numberOfEnemyTypes; j++)
+                {
+                    if (enemysList[j] == "Bee")
+                    {
+                        enemysDestroyed[j] = Math.Clamp(enemysDestroyed[j] + 1, 0, enemysAmount[j]);
+                        number[j].text = enemysDestroyed[j] + "/" + enemysAmount[j];
+                        break;
+                    }
+                }
+                break;
+            }
+            else if (enemyName == "Bat")
+            {
+                for (int j = 0; j < numberOfEnemyTypes; j++)
+                {
+                    if (enemysList[j] == "Bat")
+                    {
+                        enemysDestroyed[j] = Math.Clamp(enemysDestroyed[j] + 1, 0, enemysAmount[j]);
+                        number[j].text = enemysDestroyed[j] + "/" + enemysAmount[j];
+                        break;
+                    }
+                }
+                break;
+            }
+            else if (enemyName == "Plant")
+            {
+                for (int j = 0; j < numberOfEnemyTypes; j++)
+                {
+                    if (enemysList[j] == "Plant")
+                    {
+                        enemysDestroyed[j] = Math.Clamp(enemysDestroyed[j] + 1, 0, enemysAmount[j]);
+                        number[j].text = enemysDestroyed[j] + "/" + enemysAmount[j];
+                        break;
+                    }
+                }
+                break;
+            }
+            else if (enemyName == "Snail")
+            {
+                for (int j = 0; j < numberOfEnemyTypes; j++)
+                {
+                    if (enemysList[j] == "Snail")
+                    {
+                        enemysDestroyed[j] = Math.Clamp(enemysDestroyed[j] + 1, 0, enemysAmount[j]);
+                        number[j].text = enemysDestroyed[j] + "/" + enemysAmount[j];
+                        break;
+                    }
+                }
+                break;
+            }
+            else if (enemyName == "Chicken")
+            {
+                for (int j = 0; j < numberOfEnemyTypes; j++)
+                {
+                    if (enemysList[j] == "Chicken")
+                    {
+                        enemysDestroyed[j] = Math.Clamp(enemysDestroyed[j] + 1, 0, enemysAmount[j]);
+                        number[j].text = enemysDestroyed[j] + "/" + enemysAmount[j];
+                        break;
+                    }
+                }
+                break;
+            }
+        }
     }
 }

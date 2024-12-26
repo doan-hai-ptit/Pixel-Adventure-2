@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
     public Animator animator;
     public Rigidbody2D rb;
     public new Renderer renderer;
+    public string enemyName;
     public float speedMove;
     public bool isDead = false;
     public float radius;
@@ -16,6 +17,12 @@ public class Enemy : MonoBehaviour
     public bool isChangingDirection = false;
     public int health = 1;
     public bool isOtherForm = false;
+    
+    protected virtual void Awake() // Dùng virtual để lớp con có thể override nếu cần.
+    {
+        enemyName = this.GetType().Name;
+    }
+    
     protected virtual void Idle()
     {
         Debug.Log("Idle");
@@ -104,6 +111,7 @@ public class Enemy : MonoBehaviour
     IEnumerator Death()
     {
         isDead = true;
+        GameController.instance.UpdateEnemysList(this.enemyName);
         GameController.instance.ShakeCamera(5, 0.125f);
         animator.SetTrigger("Dead");
         rb.velocity = Vector2.zero;
