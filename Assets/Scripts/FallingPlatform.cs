@@ -6,9 +6,6 @@ using Random = UnityEngine.Random;
 
 public class FallingPlatform : MonoBehaviour
 {
-    [SerializeField] private bool isOn = true;
-    [SerializeField] private float timeToFall = 1.2f;
-    [SerializeField] private bool isFalling = false;
     [SerializeField] private float hoverAmplitude = 0.3f;  // Biên độ dao động (mức độ lên xuống)
     [SerializeField] private float hoverFrequency = 2f;  
     [SerializeField] private float hoverAmplitudeWhenFall = 2f;  // Biên độ dao động (mức độ lên xuống)
@@ -16,8 +13,11 @@ public class FallingPlatform : MonoBehaviour
     [SerializeField] private GameObject airEffect;
     [SerializeField] Animator animator;
     [SerializeField] Rigidbody2D rb2d;
-    private float randomPhaseY;
-    private float randomPhaseX;
+    public float timeToFall = 1.2f;
+    public bool isOn = true;
+    public bool isFalling = false;
+    public float randomPhaseY;
+    public float randomPhaseX;
     // Start is called before the first frame update
     void Start()
     {
@@ -48,16 +48,17 @@ public class FallingPlatform : MonoBehaviour
             Swing();
         }
     }
-
     IEnumerator Falling()
     {
+        GameController.instance.CollectObj(this.gameObject);
         airEffect.SetActive(false);
         isOn = false;
         yield return new WaitForSeconds(0.25f);
         rb2d.bodyType = RigidbodyType2D.Dynamic;
         rb2d.gravityScale = 10;
-        yield return new WaitForSeconds(2);
-        Destroy(gameObject);
+        yield return new WaitForSeconds(1);
+        this.gameObject.SetActive(false);
+        //Destroy(gameObject);
     }
 
     private void OnCollisionStay2D(Collision2D other)
@@ -85,4 +86,5 @@ public class FallingPlatform : MonoBehaviour
         float velocityY = Mathf.Sin(Time.time * hoverFrequencyWhenFall) * hoverAmplitudeWhenFall;
         rb2d.velocity = new Vector2(0, velocityY);
     }
+
 }

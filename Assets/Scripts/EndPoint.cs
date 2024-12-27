@@ -19,7 +19,7 @@ public class EndPoint : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player") && !pressed)
+        if (other.CompareTag("Player") && !pressed && GameController.instance.IsEligible())
         {
             GameController.instance.ShakeCamera(3, 0.125f);
             rb = other.GetComponent<Rigidbody2D>();
@@ -31,6 +31,7 @@ public class EndPoint : MonoBehaviour
             animator.SetTrigger("Pressed");
             pressed = true;
             particles.Play();
+            
         }
     }
 
@@ -40,6 +41,7 @@ public class EndPoint : MonoBehaviour
         animatorPlayer.SetTrigger("Disappearing");
         yield return new WaitForSeconds(0.35f);
         rend.enabled = false;
-        
+        yield return new WaitForSeconds(0.35f);
+        GameController.instance.NextScene();
     }
 }

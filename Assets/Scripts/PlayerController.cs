@@ -248,6 +248,7 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("Appearing", true);
         isDead = false;
         collider2D.enabled = true;
+        GameController.instance.ResetObj();
         yield return new WaitForSeconds(1);
         animator.SetBool("Appearing", false);
     }

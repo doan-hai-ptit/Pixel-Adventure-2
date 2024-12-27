@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5788490836252046995}
   - component: {fileID: 3339997834512661587}
   - component: {fileID: 6259073635187121121}
+  - component: {fileID: 2142093819109827443}
   - component: {fileID: 6721331933185588662}
   - component: {fileID: 4533900972899571267}
   - component: {fileID: 5222165012103107064}
@@ -133,6 +134,21 @@ MonoBehaviour:
   airEffect: {fileID: 5948916188697451402}
   animator: {fileID: 3339997834512661587}
   rb2d: {fileID: 6721331933185588662}
+--- !u!114 &2142093819109827443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1173322950952108447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa90d92ac28da7141ba45dee1d6702d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rigidBody2d: {fileID: 6721331933185588662}
+  effect: {fileID: 5948916188697451402}
+  animator: {fileID: 3339997834512661587}
 --- !u!50 &6721331933185588662
 Rigidbody2D:
   serializedVersion: 4

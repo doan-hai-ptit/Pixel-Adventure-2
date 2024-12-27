@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Cinemachine;
@@ -26,7 +27,9 @@ public class GameController : MonoBehaviour
     [SerializeField] private Sprite chicken;
     [SerializeField] private Image[] enemysImage;
     [SerializeField] private TMP_Text[] number;
-private void Awake()
+    // Variables related to collect objects
+    [SerializeField] private List<GameObject> objs = new List<GameObject>();
+    private void Awake()
     {
         instance = this;
         //DontDestroyOnLoad(gameObject);
@@ -67,7 +70,7 @@ private void Awake()
         currentVcam.m_Priority = 0;
         int i = Mathf.Clamp(index + currentVcamIndex, 0, vcam.Length);
         currentVcam = vcam[i];
-        Debug.Log(currentVcam.name);
+//        Debug.Log(currentVcam.name);
         currentVcam.m_Priority = 10;
     }
     public void NextScene()
@@ -92,6 +95,17 @@ private void Awake()
         animator.SetTrigger("Start");
     }
 
+    public bool IsEligible()
+    {
+        for (int i = 0; i < numberOfEnemyTypes; i++)
+        {
+            if (enemysDestroyed[i] != enemysAmount[i])
+            {
+                return false;
+            }
+        }
+        return true;
+    }
     public void ShakeCamera(float intensity, float time)
     {
         CinemachineBasicMultiChannelPerlin perlin = currentVcam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
@@ -116,6 +130,21 @@ private void Awake()
         }
     }
 
+    public void CollectObj(GameObject obj)
+    {
+        this.objs.Add(obj);
+    }
+    public void ResetObj()
+    {
+        int len = objs.Count;
+        for (int i = 0; i < len; i++)
+        {
+            ResettableObject resettableObject = objs[i].GetComponent<ResettableObject>();
+            //Resettable
+            resettableObject.ResetObject();
+        }
+        objs.Clear();
+    }
     public void UpdateEnemysList(string enemyName)
     {
         for (int i = 0; i < numberOfEnemyTypes; i++)
