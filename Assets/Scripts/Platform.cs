@@ -10,6 +10,7 @@ public class Platform : MonoBehaviour
     [SerializeField] private bool isPlayerOnPlatform = false;
     [SerializeField] private Animator animator;
     [SerializeField] private float speedMove = 100;
+    public bool L2R = true;
     private Rigidbody2D rigidbody2dPlayer;
     public Vector2 velocity;
     public Vector2 startPosition;
@@ -63,26 +64,34 @@ public class Platform : MonoBehaviour
         }
         else
         {
-            //Vector2 deltaPosition = transform.position - previousPosition;
-            if (transform.position.x <= startPosition.x)
+            if (L2R)
             {
-                StartCoroutine(ChangeDirection());
+                if (transform.position.x <= startPosition.x)
+                {
+                    StartCoroutine(ChangeDirection());
+                }
+                else if (transform.position.x >= endPosition.x)
+                {
+                    StartCoroutine(ChangeDirection());
+                }
             }
-            else if (transform.position.x >= endPosition.x)
+            else
             {
-                StartCoroutine(ChangeDirection());
+                if (transform.position.x >= startPosition.x)
+                {
+                    StartCoroutine(ChangeDirection());
+                }
+                else if (transform.position.x <= endPosition.x)
+                {
+                    StartCoroutine(ChangeDirection());
+                }
             }
-
             if (isPlayerOnPlatform)
             {
                 Vector2 move = new Vector2(speedMove * Time.fixedDeltaTime, 0) * direction; 
                 if (rigidbody2dPlayer.velocity.magnitude < 1.0f) rigidbody2dPlayer.MovePosition(rigidbody2dPlayer.position + move);
-                //else rigidbody2dPlayer.velocity += rb2d.velocity;
-                //rigidbody2dPlayer.velocity = rb2d.velocity;
             }
         }
-        
-        //Debug.Log(direction);
     }
 
     private void OnCollisionStay2D(Collision2D other)
@@ -124,13 +133,27 @@ public class Platform : MonoBehaviour
         animator.SetBool("On", false);
         yield return new WaitForSeconds(0.4f);
         animator.SetBool("On", true);
-        if (transform.position.x <= startPosition.x + 0.5f)
+        if (L2R)
         {
-            direction = 1;
+            if (transform.position.x <= startPosition.x + 0.5f)
+            {
+                direction = 1;
+            }
+            else if (transform.position.x >= endPosition.x-0.5f)
+            {
+                direction = -1;
+            }
         }
-        else if (transform.position.x >= endPosition.x-0.5f)
+        else
         {
-            direction = -1;
+            if (transform.position.x >= startPosition.x - 0.5f)
+            {
+                direction = -1;
+            }
+            else if (transform.position.x <= endPosition.x+0.5f)
+            {
+                direction = 1;
+            }
         }
     }
 }

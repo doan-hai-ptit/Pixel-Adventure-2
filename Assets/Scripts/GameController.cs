@@ -27,6 +27,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private Sprite snail;
     [SerializeField] private Sprite chicken;
     [SerializeField] private Sprite mushroom;
+    [SerializeField] private Sprite radish;
     [SerializeField] private Image[] enemysImage;
     [SerializeField] private TMP_Text[] number;
     // Variables related to collect objects
@@ -142,6 +143,7 @@ public class GameController : MonoBehaviour
             else if (enemysList[i] == "Snail") enemysImage[i].sprite = snail;
             else if (enemysList[i] == "Chicken") enemysImage[i].sprite = chicken;
             else if (enemysList[i] == "Mushroom") enemysImage[i].sprite = mushroom;
+            else if (enemysList[i] == "Radish") enemysImage[i].sprite = radish;
         }
 
         for (int i = 0; i < numberOfEnemyTypes; i++)
@@ -239,6 +241,19 @@ public class GameController : MonoBehaviour
                 for (int j = 0; j < numberOfEnemyTypes; j++)
                 {
                     if (enemysList[j] == "Mushroom")
+                    {
+                        enemysDestroyed[j] = Math.Clamp(enemysDestroyed[j] + 1, 0, enemysAmount[j]);
+                        number[j].text = enemysDestroyed[j] + "/" + enemysAmount[j];
+                        break;
+                    }
+                }
+                break;
+            }
+            else if (enemyName == "Radish")
+            {
+                for (int j = 0; j < numberOfEnemyTypes; j++)
+                {
+                    if (enemysList[j] == "Radish")
                     {
                         enemysDestroyed[j] = Math.Clamp(enemysDestroyed[j] + 1, 0, enemysAmount[j]);
                         number[j].text = enemysDestroyed[j] + "/" + enemysAmount[j];

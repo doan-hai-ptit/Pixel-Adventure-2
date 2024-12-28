@@ -16,7 +16,7 @@ public class Bee : Enemy
     // Start is called before the first frame update
     void Start()
     {
-        this.enemyName = this.GetType().Name;
+        //this.enemyName = this.GetType().Name;
         randomPhaseY = Random.Range(0f, Mathf.PI * 2);
         randomPhaseX = Random.Range(0f, Mathf.PI * 2);
     }

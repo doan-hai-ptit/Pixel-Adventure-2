@@ -14,6 +14,7 @@ public class PlatformMachine : MonoBehaviour
     [SerializeField] private bool horizontal = false;
     [SerializeField] private float delta = 0.5f;
     [SerializeField] private float speedMove = 2f;
+    [SerializeField] private bool L2R = true;
     private Platform platform;
     void Start()
     {
@@ -30,6 +31,7 @@ public class PlatformMachine : MonoBehaviour
         platform.startPosition = startPosition;
         platform.endPosition = endPosition;
         platform.horizontal = horizontal;
+        platform.L2R = L2R;
     }
 
     // Update is called once per frame

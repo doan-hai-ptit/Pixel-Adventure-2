@@ -73,7 +73,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public IEnumerator ChangeDirection(float secondsDuration)
+    public virtual IEnumerator ChangeDirection(float secondsDuration)
     {
         if (!isOtherForm)
         {
@@ -84,7 +84,7 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            //animator.SetTrigger("WallHit");
+            animator.SetTrigger("WallHit");
             if(IsInCameraView()) GameController.instance.ShakeCamera(1.5f, 0.125f);
             direction *= -1;
         }
