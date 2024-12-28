@@ -105,6 +105,7 @@ MonoBehaviour:
   animator: {fileID: 798746711490691950}
   rb: {fileID: 1341473685735694203}
   renderer: {fileID: 6380205088187970136}
+  enemyName: 
   speedMove: 3
   isDead: 0
   radius: 10
@@ -114,6 +115,8 @@ MonoBehaviour:
   isChangingDirection: 0
   health: 1
   isOtherForm: 0
+  isSleeping: 0
+  cellingOutTime: 0.5
 --- !u!95 &798746711490691950
 Animator:
   serializedVersion: 5
@@ -188,14 +191,14 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1234275087300023958}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
