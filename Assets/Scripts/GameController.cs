@@ -5,12 +5,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Cinemachine;
 using TMPro;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
     public static GameController instance;
-    private CinemachineVirtualCamera[] vcam;
+    [SerializeField]private CinemachineVirtualCamera[] vcam;
     private CinemachineVirtualCamera currentVcam;
     public int currentVcamIndex = 0;
     private float shakeTimer;
@@ -25,6 +26,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private Sprite plant;
     [SerializeField] private Sprite snail;
     [SerializeField] private Sprite chicken;
+    [SerializeField] private Sprite mushroom;
     [SerializeField] private Image[] enemysImage;
     [SerializeField] private TMP_Text[] number;
     // Variables related to collect objects
@@ -61,6 +63,18 @@ public class GameController : MonoBehaviour
     void OnsceneLoaded(Scene scene, LoadSceneMode mode)
     {
         vcam = FindObjectsOfType<CinemachineVirtualCamera>();
+        int len = vcam.Length;
+        for (int i = 0; i < len; i++)
+        {
+            for (int j = i + 1; j < len; j++)
+            {
+                if (string.Compare(vcam[i].gameObject.name, vcam[j].gameObject.name) > 0)
+                {
+                    // Hoán đổi vcam[i] và vcam[j]
+                    (vcam[i], vcam[j]) = (vcam[j], vcam[i]);
+                }
+            }
+        }
         currentVcam = vcam[currentVcamIndex];
         
     }
@@ -72,6 +86,11 @@ public class GameController : MonoBehaviour
         currentVcam = vcam[i];
 //        Debug.Log(currentVcam.name);
         currentVcam.m_Priority = 10;
+        for (int j = i; j < vcam.Length; j++)
+        {
+            CinemachineBasicMultiChannelPerlin perlin = vcam[j].GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+            perlin.m_AmplitudeGain = 0f;
+        }
     }
     public void NextScene()
     {
@@ -122,6 +141,7 @@ public class GameController : MonoBehaviour
             else if (enemysList[i] == "Plant") enemysImage[i].sprite = plant;
             else if (enemysList[i] == "Snail") enemysImage[i].sprite = snail;
             else if (enemysList[i] == "Chicken") enemysImage[i].sprite = chicken;
+            else if (enemysList[i] == "Mushroom") enemysImage[i].sprite = mushroom;
         }
 
         for (int i = 0; i < numberOfEnemyTypes; i++)
@@ -206,6 +226,19 @@ public class GameController : MonoBehaviour
                 for (int j = 0; j < numberOfEnemyTypes; j++)
                 {
                     if (enemysList[j] == "Chicken")
+                    {
+                        enemysDestroyed[j] = Math.Clamp(enemysDestroyed[j] + 1, 0, enemysAmount[j]);
+                        number[j].text = enemysDestroyed[j] + "/" + enemysAmount[j];
+                        break;
+                    }
+                }
+                break;
+            }
+            else if (enemyName == "Mushroom")
+            {
+                for (int j = 0; j < numberOfEnemyTypes; j++)
+                {
+                    if (enemysList[j] == "Mushroom")
                     {
                         enemysDestroyed[j] = Math.Clamp(enemysDestroyed[j] + 1, 0, enemysAmount[j]);
                         number[j].text = enemysDestroyed[j] + "/" + enemysAmount[j];

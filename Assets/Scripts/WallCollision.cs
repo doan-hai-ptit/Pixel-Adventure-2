@@ -6,7 +6,7 @@ using UnityEngine;
 public class WallCollision : MonoBehaviour
 {
     [SerializeField] private Enemy enemyScript;
-    
+    [SerializeField] private float delaySeconds;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +19,7 @@ public class WallCollision : MonoBehaviour
         if (other.CompareTag("Wall"))
         {
             
-            StartCoroutine(enemyScript.ChangeDirection());
+            StartCoroutine(enemyScript.ChangeDirection(delaySeconds));
         }
     }
 

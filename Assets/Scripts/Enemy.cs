@@ -73,18 +73,18 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public IEnumerator ChangeDirection()
+    public IEnumerator ChangeDirection(float secondsDuration)
     {
         if (!isOtherForm)
         {
             isChangingDirection = true;
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(secondsDuration);
             direction *= -1;
             isChangingDirection = false;
         }
         else
         {
-            animator.SetTrigger("WallHit");
+            //animator.SetTrigger("WallHit");
             if(IsInCameraView()) GameController.instance.ShakeCamera(1.5f, 0.125f);
             direction *= -1;
         }
@@ -113,8 +113,8 @@ public class Enemy : MonoBehaviour
         isDead = true;
         GameController.instance.UpdateEnemysList(this.enemyName);
         GameController.instance.ShakeCamera(5, 0.125f);
-        animator.SetTrigger("Dead");
         rb.velocity = Vector2.zero;
+        animator.SetTrigger("Dead");
         BoxCollider2D box = GetComponent<BoxCollider2D>();
         box.enabled = false;
         yield return new WaitForSeconds(0.1f);
