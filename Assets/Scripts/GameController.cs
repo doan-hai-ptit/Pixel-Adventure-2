@@ -28,6 +28,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private Sprite chicken;
     [SerializeField] private Sprite mushroom;
     [SerializeField] private Sprite radish;
+    [SerializeField] private Sprite blueBird;
     [SerializeField] private Image[] enemysImage;
     [SerializeField] private TMP_Text[] number;
     // Variables related to collect objects
@@ -144,6 +145,7 @@ public class GameController : MonoBehaviour
             else if (enemysList[i] == "Chicken") enemysImage[i].sprite = chicken;
             else if (enemysList[i] == "Mushroom") enemysImage[i].sprite = mushroom;
             else if (enemysList[i] == "Radish") enemysImage[i].sprite = radish;
+            else if (enemysList[i] == "BlueBird") enemysImage[i].sprite = blueBird;
         }
 
         for (int i = 0; i < numberOfEnemyTypes; i++)
@@ -167,99 +169,15 @@ public class GameController : MonoBehaviour
         }
         objs.Clear();
     }
+
     public void UpdateEnemysList(string enemyName)
     {
         for (int i = 0; i < numberOfEnemyTypes; i++)
         {
-            if (enemyName == "Bee")
+            if (enemyName == enemysList[i])
             {
-                for (int j = 0; j < numberOfEnemyTypes; j++)
-                {
-                    if (enemysList[j] == "Bee")
-                    {
-                        enemysDestroyed[j] = Math.Clamp(enemysDestroyed[j] + 1, 0, enemysAmount[j]);
-                        number[j].text = enemysDestroyed[j] + "/" + enemysAmount[j];
-                        break;
-                    }
-                }
-                break;
-            }
-            else if (enemyName == "Bat")
-            {
-                for (int j = 0; j < numberOfEnemyTypes; j++)
-                {
-                    if (enemysList[j] == "Bat")
-                    {
-                        enemysDestroyed[j] = Math.Clamp(enemysDestroyed[j] + 1, 0, enemysAmount[j]);
-                        number[j].text = enemysDestroyed[j] + "/" + enemysAmount[j];
-                        break;
-                    }
-                }
-                break;
-            }
-            else if (enemyName == "Plant")
-            {
-                for (int j = 0; j < numberOfEnemyTypes; j++)
-                {
-                    if (enemysList[j] == "Plant")
-                    {
-                        enemysDestroyed[j] = Math.Clamp(enemysDestroyed[j] + 1, 0, enemysAmount[j]);
-                        number[j].text = enemysDestroyed[j] + "/" + enemysAmount[j];
-                        break;
-                    }
-                }
-                break;
-            }
-            else if (enemyName == "Snail")
-            {
-                for (int j = 0; j < numberOfEnemyTypes; j++)
-                {
-                    if (enemysList[j] == "Snail")
-                    {
-                        enemysDestroyed[j] = Math.Clamp(enemysDestroyed[j] + 1, 0, enemysAmount[j]);
-                        number[j].text = enemysDestroyed[j] + "/" + enemysAmount[j];
-                        break;
-                    }
-                }
-                break;
-            }
-            else if (enemyName == "Chicken")
-            {
-                for (int j = 0; j < numberOfEnemyTypes; j++)
-                {
-                    if (enemysList[j] == "Chicken")
-                    {
-                        enemysDestroyed[j] = Math.Clamp(enemysDestroyed[j] + 1, 0, enemysAmount[j]);
-                        number[j].text = enemysDestroyed[j] + "/" + enemysAmount[j];
-                        break;
-                    }
-                }
-                break;
-            }
-            else if (enemyName == "Mushroom")
-            {
-                for (int j = 0; j < numberOfEnemyTypes; j++)
-                {
-                    if (enemysList[j] == "Mushroom")
-                    {
-                        enemysDestroyed[j] = Math.Clamp(enemysDestroyed[j] + 1, 0, enemysAmount[j]);
-                        number[j].text = enemysDestroyed[j] + "/" + enemysAmount[j];
-                        break;
-                    }
-                }
-                break;
-            }
-            else if (enemyName == "Radish")
-            {
-                for (int j = 0; j < numberOfEnemyTypes; j++)
-                {
-                    if (enemysList[j] == "Radish")
-                    {
-                        enemysDestroyed[j] = Math.Clamp(enemysDestroyed[j] + 1, 0, enemysAmount[j]);
-                        number[j].text = enemysDestroyed[j] + "/" + enemysAmount[j];
-                        break;
-                    }
-                }
+                enemysDestroyed[i] = Math.Clamp(enemysDestroyed[i] + 1, 0, enemysAmount[i]);
+                number[i].text = enemysDestroyed[i] + "/" + enemysAmount[i];
                 break;
             }
         }
