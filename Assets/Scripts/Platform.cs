@@ -8,6 +8,7 @@ public class Platform : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField] private Rigidbody2D rb2d;
     [SerializeField] private bool isPlayerOnPlatform = false;
+    [SerializeField] private PlayerController playerController;
     [SerializeField] private Animator animator;
     [SerializeField] private float speedMove = 100;
     public bool L2R = true;
@@ -91,6 +92,11 @@ public class Platform : MonoBehaviour
                 Vector2 move = new Vector2(speedMove * Time.fixedDeltaTime, 0) * direction; 
                 if (rigidbody2dPlayer.velocity.magnitude < 1.0f) rigidbody2dPlayer.MovePosition(rigidbody2dPlayer.position + move);
             }
+
+            if (playerController != null &&playerController.isDead)
+            {
+                isPlayerOnPlatform = false;
+            }
         }
     }
 
@@ -99,6 +105,7 @@ public class Platform : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             if(rigidbody2dPlayer == null) rigidbody2dPlayer = other.gameObject.GetComponent<Rigidbody2D>();
+            if(playerController == null) playerController = other.gameObject.GetComponent<PlayerController>();
             //Rigidbody2D rb = other.gameObject.GetComponent<Rigidbody2D>();
             if (rigidbody2dPlayer.position.y - rb2d.position.y >= 1.05f && Mathf.Abs(rb2d.position.x - rigidbody2dPlayer.position.x) <= 1.5f && Mathf.Abs(rigidbody2dPlayer.velocity.y - rb2d.velocity.y) <= 0.1f)
             {
