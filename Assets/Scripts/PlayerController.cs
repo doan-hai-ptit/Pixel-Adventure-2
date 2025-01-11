@@ -237,6 +237,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator Respawn(float seconds)
     {
+        yield return new WaitForSeconds(0.126f);
         GameController.instance.ChangeVCam(cameraIndex);
         yield return new WaitForSeconds(seconds);
         //yield return new WaitForSeconds(1.0f);

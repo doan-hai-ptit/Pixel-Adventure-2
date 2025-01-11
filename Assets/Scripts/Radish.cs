@@ -5,7 +5,6 @@ using UnityEngine;
 public class Radish : Enemy
 {
     // Start is called before the first frame update
-    [SerializeField] private GameObject wallCollison;
     [SerializeField] private float hoverAmplitude = 5f;  // Biên độ dao động (mức độ lên xuống)
     [SerializeField] private float hoverFrequency = 0.5f; 
     [SerializeField] private GameObject leaf1;

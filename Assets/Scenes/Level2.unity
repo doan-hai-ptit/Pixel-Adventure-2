@@ -3229,7 +3229,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8780987357614264661, guid: 0ca9c69bd18b2474cb5e41134849bd7f, type: 3}
       propertyPath: cameraIndex
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -14,6 +14,7 @@ public class RockHeadController : MonoBehaviour
     [SerializeField] private RockHeadCollision bottomRockHeadCollision;
     [SerializeField] private RockHeadCollision rightRockHeadCollision;
     [SerializeField] private RockHeadCollision leftRockHeadCollision;
+    [SerializeField] private bool horizontal = true;
     private GameObject rockHead;
     private new Rigidbody2D rigidbody2D;
 
@@ -51,12 +52,19 @@ public class RockHeadController : MonoBehaviour
             bottomRockHeadCollision.SetNextPart(leftRockHeadCollision);
             rightRockHeadCollision.SetNextPart(bottomRockHeadCollision);
         }
-        else if (movePoints.Length >= 2)
+        else if (movePoints.Length >= 2 && horizontal)
         {
             topRockHeadCollision.SetNextPart(rightRockHeadCollision);
             leftRockHeadCollision.SetNextPart(rightRockHeadCollision);
             bottomRockHeadCollision.SetNextPart(leftRockHeadCollision);
             rightRockHeadCollision.SetNextPart(leftRockHeadCollision);
+        }
+        else
+        {
+            topRockHeadCollision.SetNextPart(bottomRockHeadCollision);
+            leftRockHeadCollision.SetNextPart(topRockHeadCollision);
+            bottomRockHeadCollision.SetNextPart(topRockHeadCollision);
+            rightRockHeadCollision.SetNextPart(bottomRockHeadCollision);
         }
     }
     void Move()

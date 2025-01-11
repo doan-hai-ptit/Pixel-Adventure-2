@@ -5133,8 +5133,7 @@ MonoBehaviour:
   isChangingDirection: 0
   health: 1
   isOtherForm: 0
-  wallCollison: {fileID: 7710755104563300536}
-  particleSystem: {fileID: 9067214820229613449}
+  particle: {fileID: 9067214820229613449}
   time: 0.45
 --- !u!95 &1121900207316220723
 Animator:

@@ -12,7 +12,7 @@ public class GameController : MonoBehaviour
 {
     public static GameController instance;
     [SerializeField]private CinemachineVirtualCamera[] vcam;
-    private CinemachineVirtualCamera currentVcam;
+    [SerializeField]private CinemachineVirtualCamera currentVcam;
     public int currentVcamIndex = 0;
     private float shakeTimer;
     [SerializeField] Animator animator;
@@ -29,6 +29,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private Sprite mushroom;
     [SerializeField] private Sprite radish;
     [SerializeField] private Sprite blueBird;
+    [SerializeField] private Sprite fatBird;
     [SerializeField] private Image[] enemysImage;
     [SerializeField] private TMP_Text[] number;
     // Variables related to collect objects
@@ -62,38 +63,6 @@ public class GameController : MonoBehaviour
     {
         SceneManager.sceneLoaded -= OnsceneLoaded;
     }
-    void OnsceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        vcam = FindObjectsOfType<CinemachineVirtualCamera>();
-        int len = vcam.Length;
-        for (int i = 0; i < len; i++)
-        {
-            for (int j = i + 1; j < len; j++)
-            {
-                if (string.Compare(vcam[i].gameObject.name, vcam[j].gameObject.name) > 0)
-                {
-                    // Hoán đổi vcam[i] và vcam[j]
-                    (vcam[i], vcam[j]) = (vcam[j], vcam[i]);
-                }
-            }
-        }
-        currentVcam = vcam[currentVcamIndex];
-        
-    }
-
-    public void ChangeVCam(int index)
-    {
-        currentVcam.m_Priority = 0;
-        int i = Mathf.Clamp(index + currentVcamIndex, 0, vcam.Length);
-        currentVcam = vcam[i];
-//        Debug.Log(currentVcam.name);
-        currentVcam.m_Priority = 10;
-        for (int j = i; j < vcam.Length; j++)
-        {
-            CinemachineBasicMultiChannelPerlin perlin = vcam[j].GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-            perlin.m_AmplitudeGain = 0f;
-        }
-    }
     public void NextScene()
     {
         StartCoroutine(LoadLevel());
@@ -103,7 +72,24 @@ public class GameController : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName);
     }
-
+    void OnsceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        vcam = FindObjectsOfType<CinemachineVirtualCamera>();
+        int len = vcam.Length;
+        for (int i = 0; i < len; i++)
+        {
+            for (int j = i + 1; j < len; j++)
+            {
+                if (String.CompareOrdinal(vcam[i].gameObject.name, vcam[j].gameObject.name) > 0) // loi cam o day neu co
+                {
+                    // Hoán đổi vcam[i] và vcam[j]
+                    (vcam[i], vcam[j]) = (vcam[j], vcam[i]);
+                }
+            }
+        }
+        currentVcam = vcam[currentVcamIndex];
+        
+    }
     public void ReloadScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
@@ -115,7 +101,6 @@ public class GameController : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         animator.SetTrigger("Start");
     }
-
     public bool IsEligible()
     {
         for (int i = 0; i < numberOfEnemyTypes; i++)
@@ -127,13 +112,26 @@ public class GameController : MonoBehaviour
         }
         return true;
     }
+    // Vcam
+    public void ChangeVCam(int index)
+    {
+        currentVcam.m_Priority = 0;
+        int i = Mathf.Clamp(index + currentVcamIndex, 0, vcam.Length-1);
+        currentVcam = vcam[i];
+        currentVcam.m_Priority = 10;
+        for (int j = 0; j < i; j++)
+        {
+            CinemachineBasicMultiChannelPerlin perlin = vcam[j].GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+            perlin.m_AmplitudeGain = 0f;
+        }
+    }
     public void ShakeCamera(float intensity, float time)
     {
         CinemachineBasicMultiChannelPerlin perlin = currentVcam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         perlin.m_AmplitudeGain = intensity;
         shakeTimer = time;
     }
-
+    //Enemys
     private void SetUpEnemysList()
     {
         for (int i = 0; i < numberOfEnemyTypes; i++)
@@ -146,6 +144,7 @@ public class GameController : MonoBehaviour
             else if (enemysList[i] == "Mushroom") enemysImage[i].sprite = mushroom;
             else if (enemysList[i] == "Radish") enemysImage[i].sprite = radish;
             else if (enemysList[i] == "BlueBird") enemysImage[i].sprite = blueBird;
+            else if (enemysList[i] == "FatBird") enemysImage[i].sprite = fatBird;
         }
 
         for (int i = 0; i < numberOfEnemyTypes; i++)
@@ -153,7 +152,19 @@ public class GameController : MonoBehaviour
             number[i].text = enemysDestroyed[i] + "/" + enemysAmount[i];
         }
     }
-
+    public void UpdateEnemysList(string enemyName)
+    {
+        for (int i = 0; i < numberOfEnemyTypes; i++)
+        {
+            if (enemyName == enemysList[i])
+            {
+                enemysDestroyed[i] = Math.Clamp(enemysDestroyed[i] + 1, 0, enemysAmount[i]);
+                number[i].text = enemysDestroyed[i] + "/" + enemysAmount[i];
+                break;
+            }
+        }
+    }
+    //ResetObjs
     public void CollectObj(GameObject obj)
     {
         this.objs.Add(obj);
@@ -170,16 +181,5 @@ public class GameController : MonoBehaviour
         objs.Clear();
     }
 
-    public void UpdateEnemysList(string enemyName)
-    {
-        for (int i = 0; i < numberOfEnemyTypes; i++)
-        {
-            if (enemyName == enemysList[i])
-            {
-                enemysDestroyed[i] = Math.Clamp(enemysDestroyed[i] + 1, 0, enemysAmount[i]);
-                number[i].text = enemysDestroyed[i] + "/" + enemysAmount[i];
-                break;
-            }
-        }
-    }
+    
 }

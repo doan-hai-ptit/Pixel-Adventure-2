@@ -5,23 +5,11 @@ using UnityEngine;
 public class BlueBird : Enemy
 {
     // Start is called before the first frame update
-    [SerializeField] private GameObject wallCollison;
-    [SerializeField] private ParticleSystem particleSystem;
+    [SerializeField] private ParticleSystem particle;
     [SerializeField] private float time = 0.45f;
     // Start is called before the first frame update
     void Start()
     {
-        float duration = particleSystem.main.duration;
-
-        // Thời gian sống tối đa của một hạt
-        float maxLifetime = particleSystem.main.startLifetime.constantMax;
-
-        Debug.Log($"Particle System Duration: {duration} seconds");
-        Debug.Log($"Particle Max Lifetime: {maxLifetime} seconds");
-
-        // Tổng thời gian hệ thống tồn tại (Duration + Max Lifetime)
-        float totalTime = duration + maxLifetime;
-        Debug.Log($"Total Particle System Time: {totalTime} seconds");
         health = 1;
     }
     // Update is called once per frame
@@ -32,7 +20,7 @@ public class BlueBird : Enemy
             time -= Time.deltaTime;
             if (time <= 0)
             {
-                particleSystem.Play();
+                particle.Play();
                 time = 0.45f;
             }
         }

@@ -18,7 +18,6 @@ public class WallCollision : MonoBehaviour
     {
         if (other.CompareTag("Wall"))
         {
-            
             StartCoroutine(enemyScript.ChangeDirection(delaySeconds));
         }
     }

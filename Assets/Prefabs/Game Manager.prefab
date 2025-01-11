@@ -1529,6 +1529,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cdedff82d632b249a7e604aa2f1493a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vcam: []
+  currentVcam: {fileID: 0}
   currentVcamIndex: 0
   animator: {fileID: 9235197600421067}
   numberOfEnemyTypes: 5
@@ -1545,6 +1547,10 @@ MonoBehaviour:
   plant: {fileID: 7059297670216363161, guid: 326dd6eeaa0ca144ca01194dbacf63fa, type: 3}
   snail: {fileID: -2470267783429805470, guid: 505391a19bb05954ea44a8929a7104ec, type: 3}
   chicken: {fileID: -23792059411196189, guid: f729d6acae7cd754a864abda75a4bbd7, type: 3}
+  mushroom: {fileID: -6367560908665664636, guid: a6465882e447a7346b1d80709f6094be, type: 3}
+  radish: {fileID: -3239594328036583930, guid: c078262cfe23e5f45b0fdf215c6fa100, type: 3}
+  blueBird: {fileID: 6570920502705930198, guid: 9f8778d0d44049a459735824f24042e0, type: 3}
+  fatBird: {fileID: -8116256361858104333, guid: 60beccb521110cf40be533c702156072, type: 3}
   enemysImage:
   - {fileID: 8335456220500936817}
   - {fileID: 9004458560466656774}
@@ -1557,6 +1563,7 @@ MonoBehaviour:
   - {fileID: 3405104621817207301}
   - {fileID: 4301922452376385731}
   - {fileID: 2882234056591176366}
+  objs: []
 --- !u!95 &8887396298680304303
 Animator:
   serializedVersion: 5

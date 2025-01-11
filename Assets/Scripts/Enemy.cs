@@ -98,6 +98,10 @@ public class Enemy : MonoBehaviour
     {
         return Physics2D.OverlapBox(transform.position + new Vector3(width/2 * direction, 0, 0), new Vector2(width, height), 0,LayerMask.GetMask("Player"));
     }
+    protected bool IsPlayerInRangeBotSide (float width, float height)
+    {
+        return Physics2D.OverlapBox(transform.position - new Vector3(0, height/2, 0), new Vector2(width, height), 0,LayerMask.GetMask("Player"));
+    }
     protected bool IsPlayerInRangeTwoSide (float width, float height)
     {
         return Physics2D.OverlapBox(transform.position, new Vector2(width, height), 0,LayerMask.GetMask("Player"));

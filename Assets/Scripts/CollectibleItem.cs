@@ -32,7 +32,7 @@ public class CollectibleItem : MonoBehaviour
         if (other.CompareTag("Player") && !collected)
         {
             PlayerController player = other.GetComponent<PlayerController>();
-            player.CollectedFruit();
+            if(!collected) player.CollectedFruit();
             collected = true;
             animator.SetTrigger("Collected");
         }
@@ -43,7 +43,7 @@ public class CollectibleItem : MonoBehaviour
         if (other.gameObject.CompareTag("Player") && !collected)
         {
             PlayerController player = other.gameObject.GetComponent<PlayerController>();
-            player.CollectedFruit();
+            if(!collected) player.CollectedFruit();
             collected = true;
             animator.SetTrigger("Collected");
         }
