@@ -30,6 +30,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private Sprite radish;
     [SerializeField] private Sprite blueBird;
     [SerializeField] private Sprite fatBird;
+    [SerializeField] private Sprite turtle;
     [SerializeField] private Image[] enemysImage;
     [SerializeField] private TMP_Text[] number;
     // Variables related to collect objects
@@ -145,6 +146,12 @@ public class GameController : MonoBehaviour
             else if (enemysList[i] == "Radish") enemysImage[i].sprite = radish;
             else if (enemysList[i] == "BlueBird") enemysImage[i].sprite = blueBird;
             else if (enemysList[i] == "FatBird") enemysImage[i].sprite = fatBird;
+            else if (enemysList[i] == "Turtle") enemysImage[i].sprite = turtle;
+            else
+            {
+                enemysImage[i].enabled = false;
+                number[i].gameObject.SetActive(false);
+            }
         }
 
         for (int i = 0; i < numberOfEnemyTypes; i++)

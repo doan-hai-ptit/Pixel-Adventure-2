@@ -117,13 +117,13 @@ public class Enemy : MonoBehaviour
         isDead = true;
         GameController.instance.UpdateEnemysList(this.enemyName);
         GameController.instance.ShakeCamera(5, 0.125f);
+        rb.bodyType = RigidbodyType2D.Dynamic;
         rb.velocity = Vector2.zero;
         animator.SetTrigger("Dead");
         BoxCollider2D box = GetComponent<BoxCollider2D>();
         box.enabled = false;
         yield return new WaitForSeconds(0.1f);
         rb.AddForce(Vector2.up * 26f, ForceMode2D.Impulse);
-        rb.bodyType = RigidbodyType2D.Dynamic;
         rb.gravityScale = 10;
         yield return new WaitForSeconds(2f);
         Destroy(gameObject);
