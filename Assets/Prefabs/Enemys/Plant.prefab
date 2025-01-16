@@ -198,6 +198,7 @@ MonoBehaviour:
   animator: {fileID: 7924472451542933044}
   rb: {fileID: 4296753614101753755}
   renderer: {fileID: 8820837321303611807}
+  enemyName: 
   speedMove: 0
   isDead: 0
   radius: 0
@@ -263,7 +264,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.20360565, y: -0.20395088}
+  m_Offset: {x: 0.20360565, y: -0.17924309}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -274,7 +275,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.7998352, y: 2.2170982}
+  m_Size: {x: 1.7998352, y: 2.1676826}
   m_EdgeRadius: 0
 --- !u!50 &4296753614101753755
 Rigidbody2D:

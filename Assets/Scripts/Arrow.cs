@@ -10,7 +10,7 @@ public class Arrow : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private BoxCollider2D boxCollider;
     [SerializeField] private ResetArrow resetArrow;
-    private float resetTimer = 10.0f;
+    private float resetTimer = 5.0f;
     public float jumpForce = 30f;
     // Start is called before the first frame update
     void Start()

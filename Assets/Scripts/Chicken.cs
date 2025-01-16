@@ -16,12 +16,15 @@ public class Chicken : Enemy
     // Update is called once per frame
     void Update()
     {
-        isAttacking = IsPlayerInRangeTwoSide(width, height);
-        if (isAttacking)
+        if (!isDead)
         {
-           Attack();
+            isAttacking = IsPlayerInRangeTwoSide(width, height);
+            if (isAttacking)
+            {
+               Attack();
+            }
+            animator.SetBool("Attack", isAttacking);
         }
-        animator.SetBool("Attack", isAttacking);
     }
 
     public override void Move()
