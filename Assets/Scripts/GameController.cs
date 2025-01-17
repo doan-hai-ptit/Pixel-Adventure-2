@@ -11,8 +11,9 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {
     public static GameController instance;
-    [SerializeField]private CinemachineVirtualCamera[] vcam;
-    [SerializeField]private CinemachineVirtualCamera currentVcam;
+    [SerializeField] private CinemachineVirtualCamera[] vcam;
+    [SerializeField] private CinemachineVirtualCamera currentVcam;
+    [SerializeField] private GameObject PauseMenu;
     public int currentVcamIndex = 0;
     private float shakeTimer;
     [SerializeField] Animator animator;
@@ -54,6 +55,12 @@ public class GameController : MonoBehaviour
                 CinemachineBasicMultiChannelPerlin perlin = currentVcam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
                 perlin.m_AmplitudeGain = 0f;
             }
+        }
+
+        if (Input.GetButtonDown("Pause"))
+        {
+            Time.timeScale = 0f;
+            PauseMenu.SetActive(true);
         }
     }
 
@@ -189,6 +196,14 @@ public class GameController : MonoBehaviour
         }
         objs.Clear();
     }
-
-    
+    //Menu
+    public void Resume()
+    {
+        Time.timeScale = 1f;
+    }
+    public void OpenMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+        Time.timeScale = 1f;
+    }
 }

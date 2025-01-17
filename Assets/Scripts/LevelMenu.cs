@@ -9,4 +9,9 @@ public class LevelMenu : MonoBehaviour
         string levelName = "Level" + level;
         SceneManager.LoadScene(levelName);
     }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
 }
