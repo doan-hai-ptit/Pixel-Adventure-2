@@ -42,6 +42,7 @@ public class EndPoint : MonoBehaviour
         yield return new WaitForSeconds(0.35f);
         rend.enabled = false;
         yield return new WaitForSeconds(0.35f);
+        SaveSystem.Instance.SaveGame();
         GameController.instance.NextScene();
     }
 }
