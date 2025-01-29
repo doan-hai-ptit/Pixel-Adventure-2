@@ -3,33 +3,39 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Shop : MonoBehaviour, ISaveSystem
 {
-    private int coins = 10;
-    [SerializeField] private TMP_Text coinText;
+    private int currentAnimator = 0;
+    [SerializeField] private Button[] buttons;
     // Start is called before the first frame update
     void Start()
     {
-        UpdateCoinsText();
+        Disable(currentAnimator);
     }
     public void LoadData(GameData data)
     {
-        this.coins = data.coins;
+        this.currentAnimator = data.animator;
     }
-
     public void SaveData(ref GameData data)
     {
-        data.coins = this.coins;
-    }
-    private void UpdateCoinsText()
-    {
-        coinText.text = coins.ToString();
+        data.animator = this.currentAnimator;
     }
 
-    public void BuyCoin(int amount)
+    public void Disable(int index)
     {
-        coins  = Math.Clamp(coins + amount, 0, Int32.MaxValue);
-        UpdateCoinsText();
+        for (int i = 0; i < 4; i++)
+        {
+            buttons[i].interactable = true;
+        }
+        buttons[index].interactable = false;
+    }
+    public void ChangeAnimation(int amount)
+    {
+        currentAnimator = amount;
+        if(GameController.instance != null) GameController.instance.ChangeAnim(amount);
+        SaveSystem.Instance.SaveGame();
+        Disable(amount);
     }
 }

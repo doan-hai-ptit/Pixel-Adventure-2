@@ -8,7 +8,7 @@ using TMPro;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 
-public class GameController : MonoBehaviour
+public class GameController : MonoBehaviour, ISaveSystem
 {
     public static GameController instance;
     [SerializeField] private CinemachineVirtualCamera[] vcam;
@@ -37,14 +37,35 @@ public class GameController : MonoBehaviour
     [SerializeField] private TMP_Text[] number;
     // Variables related to collect objects
     [SerializeField] private List<GameObject> objs = new List<GameObject>();
+    // Variables related to change animator
+    [SerializeField] private Animator animatorPlayer;
+    [SerializeField] RuntimeAnimatorController[] listControllers;
+    private int currentAnimIndex = 0;
+    // Variables related to change mode
+    private bool isRelaxed = false;
+    [SerializeField] private GameObject healthBar;
+    [SerializeField] private PlayerController player;
+    // Variables related to up level
+    [SerializeField] private GameObject completeUI;
+    private int levelMax;
+    [SerializeField] private int currentLevel;
     private void Awake()
     {
         instance = this;
         //DontDestroyOnLoad(gameObject);
         SceneManager.sceneLoaded += OnsceneLoaded;
         SetUpEnemysList();
+        
     }
-
+    void Start()
+    {
+        animatorPlayer.runtimeAnimatorController = listControllers[currentAnimIndex];
+        if (isRelaxed)
+        {
+            player.isRelaxed = true;
+            healthBar.SetActive(false);
+        }
+    }
     private void Update()
     {
         if (shakeTimer > 0)
@@ -63,18 +84,15 @@ public class GameController : MonoBehaviour
             PauseMenu.SetActive(true);
         }
     }
-
-    void Start()
-    {
-        
-    }
+    
     void OnDestroy()
     {
         SceneManager.sceneLoaded -= OnsceneLoaded;
     }
     public void NextScene()
     {
-        StartCoroutine(LoadLevel());
+        if(currentLevel < 5) StartCoroutine(LoadLevel());
+        else OpenMainMenu();
     }
     
     public void LoadScene(string sceneName)
@@ -200,10 +218,40 @@ public class GameController : MonoBehaviour
     public void Resume()
     {
         Time.timeScale = 1f;
+        animatorPlayer.runtimeAnimatorController = listControllers[currentAnimIndex];
     }
     public void OpenMainMenu()
     {
         SceneManager.LoadScene("MainMenu");
         Time.timeScale = 1f;
+    }
+    //Animator
+    public void ChangeAnim(int index)
+    {
+        currentAnimIndex = index;
+    }
+    //Data
+    public void LoadData(GameData data)
+    {
+        this.currentAnimIndex = data.animator;
+        this.isRelaxed = data.isRelaxed;
+        this.levelMax = data.hardLevels;
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        if (!this.isRelaxed && levelMax > data.hardLevels)
+        {
+            data.hardLevels = levelMax;
+        }
+    }
+    //Complete LV
+    public void CompleteLV()
+    {
+        if (!isRelaxed && levelMax == currentLevel)
+        {
+            levelMax = Mathf.Clamp(levelMax + 1, 1, 5);
+        }
+        completeUI.SetActive(true);
     }
 }

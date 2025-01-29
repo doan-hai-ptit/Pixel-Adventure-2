@@ -6,10 +6,15 @@ using UnityEngine;
 
 public class GameData
 {
-    public int coins = 10;
-
+    public int animator = 0;
+    public bool isRelaxed = false;
+    public int normalLevels = 0;
+    public int hardLevels = 0;
     public GameData()
     {
-        this.coins = 10;
+        this.animator = 0;
+        this.isRelaxed = false;
+        this.normalLevels = 5;
+        this.hardLevels = 1;
     }
 }

@@ -17,7 +17,6 @@ public class SaveSystem : MonoBehaviour
     {
         if (Instance != null)
         {
-            Debug.LogWarning("More than one instance of SaveSystem found!");
         }
         Instance = this;
     }
@@ -26,7 +25,6 @@ public class SaveSystem : MonoBehaviour
     {
         this.fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
         this.saveSystems = GetSaveSystems();
-        Debug.Log(saveSystems.Count);
         LoadGame();
     }
     
@@ -37,7 +35,6 @@ public class SaveSystem : MonoBehaviour
             save.SaveData(ref gameData);
         }
         fileDataHandler.Save(gameData);
-        Debug.Log("Saved Game");
     }
 
     public void LoadGame()
@@ -45,7 +42,6 @@ public class SaveSystem : MonoBehaviour
         this.gameData = fileDataHandler.Load();
         if (this.gameData == null)
         {
-            Debug.LogWarning("No game data loaded!");
             NewGame();
         }
         foreach (ISaveSystem save in saveSystems)

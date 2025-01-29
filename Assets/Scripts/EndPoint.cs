@@ -38,11 +38,11 @@ public class EndPoint : MonoBehaviour
     IEnumerator End()
     {
         //yield return new WaitForSeconds(0.1f);
-        animatorPlayer.SetTrigger("Disappearing");
+        animatorPlayer.SetBool("Disappearing", true);
         yield return new WaitForSeconds(0.35f);
         rend.enabled = false;
         yield return new WaitForSeconds(0.35f);
+        GameController.instance.CompleteLV();
         SaveSystem.Instance.SaveGame();
-        GameController.instance.NextScene();
     }
 }

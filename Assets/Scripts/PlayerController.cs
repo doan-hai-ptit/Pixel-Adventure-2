@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviour
     private int maxHealth = 3;
     //Variables related to repawn
     private Vector2 respawnPosition;
+    private Vector2 originalPosition;
     public Vector2 RespawnPosition
     {
         set { respawnPosition = value; }
@@ -55,7 +56,8 @@ public class PlayerController : MonoBehaviour
     }
     //Variables related to change VCam
     public int cameraIndex;
-          //14.7itedH0965
+    //Variables related to play
+    public bool isRelaxed;
     // Start is called before the first frame update
     void Start()
     {
@@ -65,6 +67,7 @@ public class PlayerController : MonoBehaviour
         rigidbody2d = GetComponent<Rigidbody2D>();
         isDead = false; 
         RespawnPosition= transform.position;
+        originalPosition = transform.position;
         //QualitySettings.vSyncCount = 0;
         //Application.targetFrameRate = 60;
     }
@@ -133,20 +136,9 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-
-        // (!isDead)
-        //{
-         //   if (rigidbody2d.position.y > limitedHeight) GameController.instance.ChangeVCam(1);
-         //   else GameController.instance.ChangeVCam(-1);
-        //}
-        
-        //Set animations
-        //animator.SetFloat("Direction", moveDirection);
         animator.SetFloat("Speed", Mathf.Abs(rigidbody2d.velocity.x));
         animator.SetFloat("yVelocity", rigidbody2d.velocity.y);
-        //animator.SetFloat("WallSlidingDirection", wallSlidingDirection);
         animator.SetBool("WallJump", IsWalled()&& !IsGrounded());
-        //animator.SetBool("Hit", isDead);
         animator.SetBool("Jump", !IsGrounded() && !isDead); // loi thi them input.getbuttondown(jump);
         animator.SetBool("DoubleJump", doubleJump);
     }
@@ -243,7 +235,12 @@ public class PlayerController : MonoBehaviour
         //yield return new WaitForSeconds(1.0f);
         //SceneController.instance.ReloadScene();
         BoxCollider2D collider2D = GetComponent<BoxCollider2D>();
-        transform.position = RespawnPosition;
+        if(isRelaxed) transform.position = RespawnPosition;
+        else
+        {
+            transform.position = originalPosition;
+            ChangeHealth(1);
+        }
         rigidbody2d.velocity = Vector2.zero;
         animator.Play("Appear");
         animator.SetBool("Appearing", true);
@@ -253,7 +250,6 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(1);
         animator.SetBool("Appearing", false);
     }
-
     public void CollectedFruit()
     {
         numberOfFruits++;
@@ -263,12 +259,10 @@ public class PlayerController : MonoBehaviour
             numberOfFruits -= 10;
         }
     }
-
     public void ChangeHealth(int amount)
     {
         currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
         health.UpdateHearts();
-//        Debug.Log(currentHealth);
     }
     
 }
