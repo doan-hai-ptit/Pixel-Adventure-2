@@ -1,16 +1,14 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
     // Variables related to player character movement
-    //public InputAction moveAction;
+    public InputAction moveAction;
+    public InputAction jumpAction;
+    private bool isJumping = false;
     public float moveSpeed = 400.0f;
     public float jumpSpeed = 26.0f;
     public float distance = 1f;
@@ -31,11 +29,8 @@ public class PlayerController : MonoBehaviour
     float moveDirection = 1f;
     
     // Variables related to testing
-    public bool isground;
-    public bool iswall;
     public float xVelocity = -2;
     public float yVelocity = 20;
-    public Vector2 velocity;
     
     // Variables related to hitting
     public bool isDead {set; get;}
@@ -61,8 +56,8 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //jumpAction.Enable();
-        //moveAction.Enable();
+        jumpAction.Enable();
+        moveAction.Enable();
         animator = GetComponent<Animator>();
         rigidbody2d = GetComponent<Rigidbody2D>();
         isDead = false; 
@@ -75,12 +70,9 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        velocity = rigidbody2d.velocity;
-        isground = IsGrounded();
-        iswall = IsWalled();
-        horizontal = Input.GetAxisRaw("Horizontal");
-        //move = moveAction.ReadValue<float>();
-        
+        //horizontal = Input.GetAxisRaw("Horizontal");
+        horizontal = moveAction.ReadValue<float>();
+        isJumping = jumpAction.WasPressedThisFrame();
         //Flip player when moving left-right
         if (horizontal > 0.01f)
         {
@@ -118,7 +110,7 @@ public class PlayerController : MonoBehaviour
 
         if (!isDead)
         {
-            if (Input.GetButtonDown("Jump"))
+            if (isJumping)
             {
                 if (!IsWalled())
                 {
@@ -238,8 +230,12 @@ public class PlayerController : MonoBehaviour
         if(isRelaxed) transform.position = RespawnPosition;
         else
         {
-            transform.position = originalPosition;
-            ChangeHealth(1);
+            if(currentHealth > 0) transform.position = RespawnPosition;
+            else
+            {
+                transform.position = originalPosition;
+                ChangeHealth(1);
+            }
         }
         rigidbody2d.velocity = Vector2.zero;
         animator.Play("Appear");

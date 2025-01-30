@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 using System.Linq;
-
+using System.IO;
 public class SaveSystem : MonoBehaviour
 {
     [Header("File Storage Config")]
@@ -12,7 +12,6 @@ public class SaveSystem : MonoBehaviour
     private GameData gameData;
     private List<ISaveSystem> saveSystems;
     public static SaveSystem Instance;
-
     private void Awake()
     {
         if (Instance != null)
@@ -39,6 +38,7 @@ public class SaveSystem : MonoBehaviour
 
     public void LoadGame()
     {
+        //Debug.Log("Load Game");
         this.gameData = fileDataHandler.Load();
         if (this.gameData == null)
         {
@@ -53,6 +53,7 @@ public class SaveSystem : MonoBehaviour
     public void NewGame()
     {
         this.gameData = new GameData();
+        SaveGame();
     }
 
     private List<ISaveSystem> GetSaveSystems()

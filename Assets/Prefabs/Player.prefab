@@ -102,6 +102,56 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204d86f7a55c8d442b84aa01230e4497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveAction:
+    m_Name: Move
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: ea7ae3eb-2425-4fc8-9ed2-d7f8a4b8fd08
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 1D Axis
+      m_Id: 4c76e76c-5173-4ff4-a93c-0392c1dd2ff9
+      m_Path: 1DAxis
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Move
+      m_Flags: 4
+    - m_Name: negative
+      m_Id: e1ce63ee-7f33-4cc1-975a-2f8470352f73
+      m_Path: <Keyboard>/leftArrow
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Move
+      m_Flags: 8
+    - m_Name: positive
+      m_Id: d5f9c941-9d92-46a3-990a-e373e4ac840d
+      m_Path: <Keyboard>/rightArrow
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Move
+      m_Flags: 8
+    m_Flags: 0
+  jumpAction:
+    m_Name: Jump
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 5df68dbf-9e13-48a5-baaa-e5323f390304
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 2dfe0919-bd73-45f2-8708-c3213681b7a8
+      m_Path: <Keyboard>/upArrow
+      m_Interactions: Press
+      m_Processors: 
+      m_Groups: 
+      m_Action: Jump
+      m_Flags: 0
+    m_Flags: 0
   moveSpeed: 9
   jumpSpeed: 26
   distance: 1.4
@@ -111,12 +161,12 @@ MonoBehaviour:
   wallLayer:
     serializedVersion: 2
     m_Bits: 17024
-  isground: 0
-  iswall: 0
   xVelocity: -2
   yVelocity: 20
   health: {fileID: 0}
   currentHealth: 1
+  cameraIndex: 0
+  isRelaxed: 0
 --- !u!50 &1963546819697497813
 Rigidbody2D:
   serializedVersion: 4
