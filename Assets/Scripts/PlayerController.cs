@@ -233,6 +233,7 @@ public class PlayerController : MonoBehaviour
             if(currentHealth > 0) transform.position = RespawnPosition;
             else
             {
+                GameController.instance.ChangeVCam(0);
                 transform.position = originalPosition;
                 ChangeHealth(1);
             }
