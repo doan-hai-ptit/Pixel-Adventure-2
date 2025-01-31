@@ -5,11 +5,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Cinemachine;
 using TMPro;
-using UnityEngine.Rendering;
 using UnityEngine.UI;
-
+using UnityEngine.InputSystem;
 public class GameController : MonoBehaviour, ISaveSystem
 {
+    public InputAction pauseAction;
+    private bool paused = false;
     public static GameController instance;
     [SerializeField] private CinemachineVirtualCamera[] vcam;
     [SerializeField] private CinemachineVirtualCamera currentVcam;
@@ -51,6 +52,7 @@ public class GameController : MonoBehaviour, ISaveSystem
     [SerializeField] private int currentLevel;
     private void Awake()
     {
+        Application.targetFrameRate = 60;
         instance = this;
         //DontDestroyOnLoad(gameObject);
         SceneManager.sceneLoaded += OnsceneLoaded;
@@ -59,6 +61,7 @@ public class GameController : MonoBehaviour, ISaveSystem
     }
     void Start()
     {
+        pauseAction.Enable();
         animatorPlayer.runtimeAnimatorController = listControllers[currentAnimIndex];
         if (isRelaxed)
         {
@@ -68,6 +71,7 @@ public class GameController : MonoBehaviour, ISaveSystem
     }
     private void Update()
     {
+        paused = pauseAction.WasPressedThisFrame();
         if (shakeTimer > 0)
         {
             shakeTimer -= Time.deltaTime;
@@ -78,7 +82,7 @@ public class GameController : MonoBehaviour, ISaveSystem
             }
         }
 
-        if (Input.GetButtonDown("Pause"))
+        if (paused)
         {
             Time.timeScale = 0f;
             PauseMenu.SetActive(true);
